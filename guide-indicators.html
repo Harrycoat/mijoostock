@@ -163,6 +163,26 @@
     <b>주의</b> — RSI가 70을 넘었다고 해서 곧바로 하락하는 것은 아닙니다. 강한 상승 추세에서는 RSI가 70~90 구간에서 오래 머무를 수 있습니다 (이를 "과매수 상태 지속"이라 부릅니다). RSI 하나만으로 매도 신호를 판단하는 것은 위험할 수 있습니다.
   </div>
 
+  <svg viewBox="0 0 700 260" style="width:100%; height:auto; margin:24px 0; background:#10141d; border:1px solid #1f2632; border-radius:10px;" xmlns="http://www.w3.org/2000/svg">
+    <text x="20" y="30" fill="#8892a4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">RSI (14)</text>
+    <line x1="20" y1="50" x2="680" y2="50" stroke="#1f2632" stroke-width="1"/>
+    <line x1="20" y1="220" x2="680" y2="220" stroke="#1f2632" stroke-width="1"/>
+    <rect x="20" y="50" width="660" height="42" fill="#ff4d5e" opacity="0.08"/>
+    <rect x="20" y="178" width="660" height="42" fill="#3d8bff" opacity="0.08"/>
+    <line x1="20" y1="92" x2="680" y2="92" stroke="#ff4d5e" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+    <line x1="20" y1="178" x2="680" y2="178" stroke="#3d8bff" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+    <text x="688" y="96" fill="#ff4d5e" font-family="JetBrains Mono, monospace" font-size="11">70</text>
+    <text x="688" y="182" fill="#3d8bff" font-family="JetBrains Mono, monospace" font-size="11">30</text>
+    <text x="688" y="54" fill="#4c5566" font-family="JetBrains Mono, monospace" font-size="10">100</text>
+    <text x="688" y="224" fill="#4c5566" font-family="JetBrains Mono, monospace" font-size="10">0</text>
+    <path d="M 20 160 L 90 145 L 160 120 L 230 95 L 300 78 L 370 70 L 440 82 L 510 110 L 580 150 L 650 168"
+          fill="none" stroke="#17e8c9" stroke-width="2.5"/>
+    <circle cx="370" cy="70" r="4" fill="#17e8c9"/>
+    <text x="330" y="55" fill="#17e8c9" font-family="JetBrains Mono, monospace" font-size="10">과매수 진입</text>
+    <circle cx="650" cy="168" r="4" fill="#17e8c9"/>
+    <text x="560" y="238" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="11">예시: 상승 후 다시 중립 구간으로 내려오는 흐름</text>
+  </svg>
+
   <h2>2. MACD (Moving Average Convergence Divergence)</h2>
   <span class="indicator-badge badge-trend">추세 지표</span>
   <p>MACD는 서로 다른 기간의 이동평균선(보통 12일선과 26일선) 간의 차이를 이용해 추세의 방향과 강도를 파악하는 지표입니다. MACD 라인, 시그널 라인(9일 이동평균), 그리고 그 차이를 막대그래프로 표시한 히스토그램, 세 가지로 구성됩니다.</p>
@@ -177,6 +197,45 @@
   <div class="callout">
     MACD는 이동평균선 기반이라 <b>후행성(lagging)</b> 지표에 속합니다. 즉 추세가 이미 시작된 뒤에 신호가 나오는 경우가 많아, "지금 막 시작되는 움직임"을 잡기보다는 "이미 진행 중인 추세를 확인"하는 용도로 많이 쓰입니다.
   </div>
+
+  <svg viewBox="0 0 700 260" style="width:100%; height:auto; margin:24px 0; background:#10141d; border:1px solid #1f2632; border-radius:10px;" xmlns="http://www.w3.org/2000/svg">
+    <text x="20" y="30" fill="#8892a4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">MACD (12, 26, 9)</text>
+    <line x1="20" y1="140" x2="680" y2="140" stroke="#4c5566" stroke-width="1"/>
+    <g>
+      <rect x="40" y="150" width="14" height="10" fill="#ff4d5e" opacity="0.6"/>
+      <rect x="70" y="145" width="14" height="15" fill="#ff4d5e" opacity="0.6"/>
+      <rect x="100" y="150" width="14" height="10" fill="#ff4d5e" opacity="0.5"/>
+      <rect x="130" y="135" width="14" height="5" fill="#8892a4" opacity="0.4"/>
+      <rect x="160" y="115" width="14" height="25" fill="#17e8c9" opacity="0.6"/>
+      <rect x="190" y="95" width="14" height="45" fill="#17e8c9" opacity="0.7"/>
+      <rect x="220" y="80" width="14" height="60" fill="#17e8c9" opacity="0.8"/>
+      <rect x="250" y="85" width="14" height="55" fill="#17e8c9" opacity="0.7"/>
+      <rect x="280" y="100" width="14" height="40" fill="#17e8c9" opacity="0.6"/>
+      <rect x="310" y="120" width="14" height="20" fill="#17e8c9" opacity="0.5"/>
+      <rect x="340" y="135" width="14" height="5" fill="#8892a4" opacity="0.4"/>
+      <rect x="370" y="140" width="14" height="12" fill="#ff4d5e" opacity="0.5"/>
+      <rect x="400" y="140" width="14" height="22" fill="#ff4d5e" opacity="0.6"/>
+      <rect x="430" y="140" width="14" height="18" fill="#ff4d5e" opacity="0.5"/>
+      <rect x="460" y="132" width="14" height="8" fill="#8892a4" opacity="0.4"/>
+      <rect x="490" y="105" width="14" height="35" fill="#17e8c9" opacity="0.7"/>
+      <rect x="520" y="90" width="14" height="50" fill="#17e8c9" opacity="0.8"/>
+      <rect x="550" y="100" width="14" height="40" fill="#17e8c9" opacity="0.6"/>
+      <rect x="580" y="120" width="14" height="20" fill="#17e8c9" opacity="0.5"/>
+      <rect x="610" y="135" width="14" height="5" fill="#8892a4" opacity="0.4"/>
+    </g>
+    <path d="M 40 150 Q 150 160 220 90 T 340 138 Q 430 155 500 100 T 620 138"
+          fill="none" stroke="#f5c451" stroke-width="2"/>
+    <path d="M 40 145 Q 150 150 220 105 T 340 130 Q 430 148 500 115 T 620 130"
+          fill="none" stroke="#3d8bff" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle cx="160" cy="128" r="4" fill="#17e8c9"/>
+    <text x="130" y="200" fill="#17e8c9" font-family="Pretendard, sans-serif" font-size="11">골든크로스 → 상승 전환</text>
+    <circle cx="370" cy="142" r="4" fill="#ff4d5e"/>
+    <text x="345" y="200" fill="#ff4d5e" font-family="Pretendard, sans-serif" font-size="11">데드크로스 → 하락 전환</text>
+    <g transform="translate(500,25)">
+      <line x1="0" y1="0" x2="18" y2="0" stroke="#f5c451" stroke-width="2"/><text x="24" y="4" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="10">MACD 라인</text>
+      <line x1="0" y1="16" x2="18" y2="16" stroke="#3d8bff" stroke-width="1.5" stroke-dasharray="3 3"/><text x="24" y="20" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="10">시그널 라인</text>
+    </g>
+  </svg>
 
   <h2>3. 볼린저 밴드 (Bollinger Bands)</h2>
   <span class="indicator-badge badge-volatility">변동성 지표</span>
@@ -193,6 +252,26 @@
   <div class="warn">
     <b>주의</b> — 강한 추세 구간에서는 가격이 밴드 상단(또는 하단)에 붙어서 계속 움직이는 "밴드 워킹(Band Walking)" 현상이 나타날 수 있습니다. 밴드 상단에 닿았다고 무조건 되돌림이 온다고 보기는 어렵습니다.
   </div>
+
+  <svg viewBox="0 0 700 260" style="width:100%; height:auto; margin:24px 0; background:#10141d; border:1px solid #1f2632; border-radius:10px;" xmlns="http://www.w3.org/2000/svg">
+    <text x="20" y="30" fill="#8892a4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">Bollinger Bands (20, 2)</text>
+    <path d="M 20 150 C 100 148, 150 145, 200 130 C 240 118, 260 100, 300 60 C 340 30, 380 25, 420 30 C 460 35, 490 55, 520 80 C 560 110, 600 130, 680 135"
+          fill="none" stroke="#4c5566" stroke-width="1.5"/>
+    <path d="M 20 165 C 100 163, 150 158, 200 150 C 240 145, 260 138, 300 90 C 340 42, 380 30, 420 35 C 460 42, 490 70, 520 100 C 560 135, 600 155, 680 165"
+          fill="none" stroke="#3d8bff" stroke-width="1.5" opacity="0.7"/>
+    <path d="M 20 135 C 100 133, 150 132, 200 110 C 240 92, 260 62, 300 32 C 340 18, 380 20, 420 25 C 460 28, 490 40, 520 60 C 560 85, 600 105, 680 108"
+          fill="none" stroke="#ff4d5e" stroke-width="1.5" opacity="0.7"/>
+    <path d="M 20 195 L 100 200 L 160 195 L 220 145 L 280 75 L 340 25 L 400 28 L 460 60 L 520 90 L 580 120 L 640 148 L 680 150"
+          fill="none" stroke="#17e8c9" stroke-width="2.5"/>
+    <rect x="60" y="150" width="90" height="45" fill="#f5c451" opacity="0.08" stroke="#f5c451" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="65" y="240" fill="#f5c451" font-family="Pretendard, sans-serif" font-size="11">밴드 폭 축소 (Squeeze)</text>
+    <text x="420" y="20" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="11">밴드 상단 따라 움직임 (Band Walking)</text>
+    <g transform="translate(500,45)">
+      <line x1="0" y1="0" x2="18" y2="0" stroke="#ff4d5e" stroke-width="1.5" opacity="0.7"/><text x="24" y="4" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="10">상단 밴드</text>
+      <line x1="0" y1="16" x2="18" y2="16" stroke="#4c5566" stroke-width="1.5"/><text x="24" y="20" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="10">중심선</text>
+      <line x1="0" y1="32" x2="18" y2="32" stroke="#3d8bff" stroke-width="1.5" opacity="0.7"/><text x="24" y="36" fill="#8892a4" font-family="Pretendard, sans-serif" font-size="10">하단 밴드</text>
+    </g>
+  </svg>
 
   <h2>4. 세 지표를 같이 보면 좋은 이유</h2>
   <p>RSI, MACD, 볼린저 밴드는 각각 다른 성격(모멘텀 · 추세 · 변동성)을 보는 지표라, 하나만 보고 판단하기보다 여러 지표를 함께 참고하며 서로 다른 각도에서 시장 상황을 교차 확인하는 것이 일반적인 접근 방식입니다. 예를 들어 RSI는 과매수인데 MACD는 여전히 상승 추세를 유지하고 있다면, 단순히 "과매수니까 하락"이라고 단정 짓기보다 추세 전체 맥락을 함께 살펴보는 식입니다.</p>
