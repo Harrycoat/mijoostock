@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미국 주식 계좌 개설 가이드 — MiJooStock.com</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --ink: #0a0d13;
+    --panel: #10141d;
+    --panel-2: #151b26;
+    --line: #1f2632;
+    --line-soft: #181e29;
+    --text: #e7ebf2;
+    --text-dim: #8892a4;
+    --text-faint: #4c5566;
+    --up: #ff4d5e;
+    --down: #3d8bff;
+    --cyan: #17e8c9;
+    --amber: #f5c451;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{background:var(--ink);}
+  body{
+    background:var(--ink); color:var(--text);
+    font-family:'Pretendard', -apple-system, sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+
+  header.nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(10,13,19,0.9); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:820px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:16px;}
+  .logo-mark{width:20px; height:20px; border-radius:4px; background:linear-gradient(135deg, var(--cyan), #0a9d87); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#04120f;}
+  .logo .dim{color:var(--text-faint); font-weight:500;}
+  .back-link{font-size:13px; color:var(--text-dim);}
+
+  main{max-width:760px; margin:0 auto; padding:48px 24px 100px;}
+
+  .crumb{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint); margin-bottom:18px; text-transform:uppercase; letter-spacing:0.08em;}
+  .level-badge{
+    display:inline-flex; font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:800;
+    letter-spacing:0.04em; padding:4px 9px; border-radius:5px;
+    background:rgba(61,139,255,0.14); color:var(--down); margin-bottom:16px;
+  }
+  h1{font-size:clamp(26px,4vw,38px); font-weight:800; letter-spacing:-0.02em; margin-bottom:14px;}
+  .lede{font-size:16px; color:var(--text-dim); margin-bottom:8px;}
+  .meta-row{display:flex; gap:16px; margin:20px 0 36px; font-size:12.5px; color:var(--text-faint); font-family:'JetBrains Mono', monospace;}
+
+  .disclaimer{
+    background:rgba(245,196,81,0.06); border:1px solid rgba(245,196,81,0.25);
+    border-radius:10px; padding:14px 16px; margin-bottom:40px;
+    font-size:12.5px; color:var(--text-dim); line-height:1.6;
+  }
+  .disclaimer b{color:var(--amber);}
+
+  h2{
+    font-size:20px; font-weight:700; margin:44px 0 16px;
+    padding-top:20px; border-top:1px solid var(--line);
+  }
+  h2:first-of-type{border-top:none; padding-top:0; margin-top:0;}
+  h3{font-size:15.5px; font-weight:700; margin:22px 0 10px; color:var(--cyan);}
+  p{font-size:15px; color:#c7ccd6; margin-bottom:14px;}
+  ul, ol{margin:0 0 16px 20px; color:#c7ccd6; font-size:15px;}
+  li{margin-bottom:8px;}
+  li::marker{color:var(--text-faint);}
+
+  .step-list{list-style:none; margin:0 0 20px 0; counter-reset:step;}
+  .step-item{
+    counter-increment:step;
+    display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line-soft);
+  }
+  .step-item:last-child{border-bottom:none;}
+  .step-num{
+    flex:0 0 auto; width:26px; height:26px; border-radius:6px;
+    background:var(--panel-2); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; color:var(--cyan);
+  }
+  .step-body{flex:1;}
+  .step-title{font-weight:700; font-size:14.5px; margin-bottom:4px;}
+  .step-desc{font-size:13.5px; color:var(--text-dim); line-height:1.6;}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0 24px; font-size:13.5px;}
+  th, td{padding:10px 12px; text-align:left; border-bottom:1px solid var(--line-soft);}
+  th{color:var(--text-faint); font-family:'JetBrains Mono', monospace; font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em;}
+  td{color:#c7ccd6;}
+
+  .callout{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px; margin:20px 0; font-size:13.5px; color:var(--text-dim);
+  }
+  .callout b{color:var(--text);}
+
+  .cta-box{
+    margin-top:56px; padding:32px; border-radius:14px;
+    background:linear-gradient(135deg, rgba(245,196,81,0.08), rgba(23,232,201,0.04));
+    border:1px solid rgba(245,196,81,0.3);
+    text-align:center;
+  }
+  .cta-box h3{color:var(--text); font-size:18px; margin-bottom:8px;}
+  .cta-box p{font-size:13.5px; color:var(--text-dim); margin-bottom:18px;}
+  .btn-primary{
+    display:inline-flex; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:14px;
+    background:var(--amber); color:#1a1200; padding:13px 22px; border-radius:8px;
+  }
+
+  .nav-footer{
+    display:flex; justify-content:space-between; margin-top:60px; padding-top:24px;
+    border-top:1px solid var(--line); font-size:13px; color:var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo"><div class="logo-mark">M</div>MiJooStock<span class="dim">.com</span></div>
+    <a class="back-link" href="index.html">← 메인으로</a>
+  </div>
+</header>
+
+<main>
+  <div class="crumb">기초 가이드 · 1-1</div>
+  <span class="level-badge">LEVEL 1 · 무료</span>
+  <h1>내게 맞는 미국 증권사 찾기 &amp; 계좌 개설</h1>
+  <p class="lede">증권사 비교부터 준비물, 실제 개설 절차, 자주 묻는 질문까지 — 처음 시작하는 분들을 위한 안내입니다.</p>
+
+  <div class="meta-row">
+    <span>⏱ 읽는 시간 6분</span>
+    <span>📅 최종 업데이트 2026.08</span>
+  </div>
+
+  <div class="disclaimer">
+    <b>안내:</b> 본 콘텐츠는 정보 제공 및 교육 목적입니다. 특정 증권사나 종목에 대한 투자 권유가 아니며, 실제 계좌 개설 및 투자 결정은 본인의 판단과 책임 하에 진행하시기 바랍니다.
+  </div>
+
+  <h2>1. 증권사부터 정하기</h2>
+  <p>미국 주식을 직접, 더 낮은 수수료로, 더 다양한 상품(옵션 포함)으로 거래하려면 미국 현지 증권사에 직접 계좌를 여는 것이 유리합니다. 아래 5곳은 미주 한인들이 가장 많이 쓰는 증권사입니다. 본인의 투자 스타일에 맞는 곳을 먼저 정하시면 이후 과정이 훨씬 수월합니다.</p>
+
+  <table>
+    <tr><th>증권사</th><th>추천 대상</th><th>거래 수수료</th><th>옵션 수수료(계약당)</th></tr>
+    <tr><td>Charles Schwab (Thinkorswim)</td><td>전천후 / 전문 트레이더</td><td>$0</td><td>$0.65</td></tr>
+    <tr><td>Robinhood</td><td>완전 초보 / 모바일 중심</td><td>$0</td><td>$0</td></tr>
+    <tr><td>Webull</td><td>모바일 차트 / 중급자</td><td>$0</td><td>$0 (일부 지정 수수료 제외)</td></tr>
+    <tr><td>Fidelity</td><td>장기 투자자 / 은퇴 자금</td><td>$0</td><td>$0.65</td></tr>
+    <tr><td>Interactive Brokers</td><td>글로벌 투자자 / 전문 옵션</td><td>$0~</td><td>$0.15~$0.65</td></tr>
+  </table>
+
+  <h3>Charles Schwab (Thinkorswim)</h3>
+  <p>미국 최대 규모의 전통 브로커리지로, TD Ameritrade를 인수하면서 전문가용 HTS인 Thinkorswim(TOS) 플랫폼을 기본 제공합니다. 강력한 차트 분석, 커스텀 지표 세팅, 안정적인 서버와 은행 계좌 연동이 강점입니다. 다만 초보자에겐 TOS 화면이 다소 복잡할 수 있습니다.</p>
+  <div class="callout"><b>추천</b>: 주식 기초부터 시작해서 향후 차트 분석, 옵션 매매(GEX 분석 등)까지 한 곳에서 꾸준히 공부하고 싶은 분.</div>
+
+  <h3>Robinhood</h3>
+  <p>미주 젊은 층과 주식 입문자들에게 가장 인기 있는 모바일 전용 앱 기반 증권사입니다. 옵션 거래 수수료가 $0이고, 앱 화면이 쉬워서 계좌 개설부터 첫 주문까지 5분이면 가능합니다. Gold 멤버십 및 IRA 은퇴계좌 3% 매칭 혜택도 강점입니다. 다만 고급 차트/데이터 분석 기능은 부족합니다.</p>
+  <div class="callout"><b>추천</b>: 주식을 처음 시작하며, 모바일로 쉽고 간편하게 소액·소수점 투자 및 기초 옵션 거래를 해보고 싶은 초보자.</div>
+
+  <h3>Webull</h3>
+  <p>로빈후드의 간편함과 슈왑의 전문 차트 기능을 중간에서 잘 조합한 증권사입니다. 모바일 앱 분석 기능이 뛰어나고, 새벽 4시부터 밤 8시까지(미국 동부 기준) 확장 거래 시간을 지원합니다. 다만 화면에 정보가 많아 초보자는 다소 복잡하게 느낄 수 있습니다.</p>
+  <div class="callout"><b>추천</b>: 스마트폰만으로 다양한 보조지표와 뉴스, 옵션 체인을 빠르게 확인하고 싶은 유저.</div>
+
+  <h3>Fidelity</h3>
+  <p>현금 잔액에 자동으로 이자가 붙는(SPAXX) 구조와 안정성·신뢰도가 강점인 전통 증권사입니다. 장기 투자·은퇴 자금 운용에 특히 적합하지만, 모바일 UI는 다소 투박한 편입니다.</p>
+
+  <h3>Interactive Brokers (IBKR)</h3>
+  <p>최저 수준의 마진 이자율과 다양한 해외 시장 접근성이 강점인 글로벌 증권사입니다. 다만 수수료 체계가 복잡하고 UI 진입장벽이 다소 높아, 어느 정도 경험이 쌓인 이후에 고려하시는 걸 권장드립니다.</p>
+
+  <h2>2. 계좌 개설 전 준비물 체크리스트</h2>
+  <p>개설 도중 막히지 않으려면 아래 항목을 미리 준비해두세요.</p>
+  <ul>
+    <li><b>신분 증명</b> — SSN(사회보장번호) 또는 ITIN, 미국 운전면허증 또는 여권</li>
+    <li><b>주소 증명</b> — 현재 거주지 주소 (유틸리티 청구서, 은행 고지서 등이 필요할 수 있음)</li>
+    <li><b>연동할 미국 은행 계좌</b> — Routing Number & Account Number (입출금 ACH 연동용)</li>
+    <li><b>신분 상태 확인</b> — 영주권/시민권자, E2/H1B/F1 등 비자 소지자별 개설 가능 여부 사전 체크</li>
+  </ul>
+
+  <h2>3. Step-by-Step 계좌 개설 따라하기</h2>
+
+  <ol class="step-list">
+    <li class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">계좌 유형 선택</div>
+        <div class="step-desc">Individual Taxable Account(일반 주식계좌) vs IRA(은퇴 계좌) 중 목적에 맞게 선택</div>
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">개인정보 입력</div>
+        <div class="step-desc">SSN, 거주지 주소, 직업 정보 입력</div>
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">신원 확인</div>
+        <div class="step-desc">운전면허증 또는 여권 사진 촬영 후 업로드</div>
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">은행 계좌 연동</div>
+        <div class="step-desc">Plaid 시스템 등을 통한 Instant Bank Connect로 입출금 계좌 연결</div>
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">마진 / 옵션 승인 신청</div>
+        <div class="step-desc">기초 단계에서는 Cash Account(현금 계좌)를 권장드립니다</div>
+      </div>
+    </li>
+  </ol>
+
+  <div class="callout">
+    <b>Cash Account vs Margin Account</b> — 초보자는 원금 이상 손실 위험이 없는 Cash Account로 시작하는 것을 권장합니다.<br><br>
+    <b>옵션 승인 단계(Option Level)</b> — 옵션 거래 신청 시 초보자는 Level 1~2(Covered Call, Cash-Secured Put 등 상대적으로 안전한 전략)로 우선 신청하는 것이 일반적입니다.
+  </div>
+
+  <h2>4. 자주 묻는 질문</h2>
+
+  <h3>Q. 영주권이나 시민권이 없는 비자(H1B, F1, L1 등) 소지자도 계좌를 만들 수 있나요?</h3>
+  <p>네, SSN이 있고 미국 세법상 거주자(Tax Resident) 조건에 충족되면 Schwab, Robinhood, Webull 모두 개설 가능합니다.</p>
+
+  <h3>Q. 계좌 개설 시 비용이 드나요? 최소 입금 금액이 있나요?</h3>
+  <p>대부분의 주요 증권사는 계좌 개설비 및 유지비가 $0이며, 최소 입금 금액 제한도 없습니다.</p>
+
+  <h3>Q. 주식 계좌와 IRA(은퇴계좌) 중 무엇을 먼저 만들어야 하나요?</h3>
+  <p>자유로운 입출금과 매매를 원하시면 일반 주식계좌(Brokerage Account)를 먼저 만드시고, 절세 및 장기 노후 준비가 목적이라면 Roth IRA를 함께 개설하시는 것을 추천합니다.</p>
+
+  <h2>5. 세금, 미리 알아두면 좋은 것들</h2>
+  <p>미국 현지 증권사 계좌는 국내 증권사와 세금 처리 방식이 다릅니다. 정확한 신고는 본인의 거주자 신분(Tax Resident 여부)에 따라 달라지므로, 아래는 일반적인 참고 사항입니다.</p>
+  <ul>
+    <li><b>양도소득세</b> — 한국 거주자는 국내에 해외주식 양도소득 신고 의무가 있습니다 (연 250만원 초과분 22%)</li>
+    <li><b>배당소득세</b> — 배당금에 대해 원천징수가 발생할 수 있으며, 세율은 신분·조세조약에 따라 달라집니다</li>
+    <li><b>환율 변동</b> — 원/달러 환율에 따라 원화 환산 자산 가치가 달라지므로 환율 흐름도 함께 고려</li>
+  </ul>
+  <div class="callout">
+    세금 신고는 본인 상황(거주자 여부, 소득 규모, 비자 신분 등)에 따라 크게 달라질 수 있어 일반적인 안내이며, 정확한 판단은 세무 전문가 상담을 권장드립니다.
+  </div>
+
+  <div class="cta-box">
+    <h3>계좌 개설, 어떤 증권사가 맞을지 막막하신가요?</h3>
+    <p>본인 상황에 맞는 증권사 선택부터 실제 개설 절차까지 1:1로 안내드립니다.</p>
+    <a class="btn-primary" href="apply.html?type=account">계좌개설 문의 신청하기 →</a>
+  </div>
+
+  <div class="nav-footer">
+    <a href="index.html">← 기초 가이드 목록</a>
+    <span>다음 글: 지정가 vs 시장가 주문 (준비중)</span>
+  </div>
+</main>
+
+</body>
+</html>
