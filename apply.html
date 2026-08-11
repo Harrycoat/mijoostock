@@ -289,9 +289,43 @@
   const initialType = params.get('type') || 'account';
   selectType(initialType);
 
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1593bgMzO7Dz9BHfLAr3L7Htr4Rude80iUUWSXDjkgWAYKtBm1C-gFOhPKmqw0uAfHg/exec';
+
   function handleSubmit(e){
     e.preventDefault();
-    alert('신청이 접수되었습니다. 곧 연락드리겠습니다. (데모 화면입니다)');
+
+    const form = e.target;
+    const btn = document.getElementById('submitBtn');
+    const originalText = btn.textContent;
+    btn.textContent = '전송 중...';
+    btn.disabled = true;
+
+    const payload = {
+      type: document.getElementById('typeDisplay').value,
+      name: form.querySelector('input[type="text"]').value,
+      phone: form.querySelector('input[type="tel"]').value,
+      email: form.querySelector('input[type="email"]').value,
+      experience: form.querySelector('select:not(#typeDisplay)').value,
+      message: document.getElementById('msgField').value
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      alert('신청이 접수되었습니다. 곧 연락드리겠습니다.');
+      form.reset();
+      selectType(payload.type);
+    })
+    .catch(() => {
+      alert('전송 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    })
+    .finally(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    });
+
     return false;
   }
 </script>
