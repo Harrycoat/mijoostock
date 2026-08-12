@@ -143,66 +143,21 @@
 <footer>© MiJooStock.com · 본 콘텐츠는 교육 목적이며 투자 권유가 아닙니다.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="analysis-render.js"></script>
 <script>
 (function(){
-  var SHEET_ID = '1lJVPwXYQlDjcI10F2vZMuxhLITK02hDVdp00WHw_3eg';
-  var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&gid=0';
-
   var listEl = document.getElementById('boardList');
 
-  function esc(s){
-    return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  fetch(CSV_URL, { cache: 'no-store' })
-    .then(function(res){ if(!res.ok) throw new Error('sheet fetch failed: ' + res.status); return res.text(); })
-    .then(function(csvText){
-      var parsed = Papa.parse(csvText.trim(), { header: true, skipEmptyLines: true });
-      var rows = parsed.data.filter(function(r){ return r['날짜'] && r['종목']; });
-
-      if(!rows.length){
-        listEl.innerHTML = '<div class="empty-state">아직 등록된 분석이 없습니다. 곧 첫 글이 올라올 예정입니다.</div>';
-        return;
-      }
-
-      rows.sort(function(a, b){ return String(b['날짜']).localeCompare(String(a['날짜'])); });
-
+  MijooAnalysis.loadRows(
+    function(rows){
       listEl.innerHTML = rows.map(function(r){
-        var date = esc(r['날짜']);
-        var ticker = esc(r['종목']);
-        var file = esc(r['파일명']);
-        var support = esc(r['지지선']);
-        var flip = esc(r['감마플립']);
-        var resist = esc(r['저항선']);
-        var summary = esc(r['요약']);
-
-        var imgHtml = file
-          ? '<img class="post-img" src="' + file + '" alt="' + ticker + ' 실전 분석" loading="lazy">'
-          : '';
-
-        var levelsHtml =
-          (support ? '<span class="level-badge lv-support">지지선 $' + support + '</span>' : '') +
-          (flip ? '<span class="level-badge lv-flip">감마플립 $' + flip + '</span>' : '') +
-          (resist ? '<span class="level-badge lv-resist">저항선 $' + resist + '</span>' : '');
-
-        return '<article class="post-card">' +
-          '<div class="post-head">' +
-            '<span class="post-ticker">' + ticker + '</span>' +
-            '<span class="post-date">' + date + '</span>' +
-          '</div>' +
-          imgHtml +
-          '<div class="post-body">' +
-            (levelsHtml ? '<div class="level-row">' + levelsHtml + '</div>' : '') +
-            (summary ? '<p class="post-summary">' + summary + '</p>' : '') +
-          '</div>' +
-        '</article>';
+        return '<article class="post-card">' + MijooAnalysis.renderAnalysisBlock(r) + '</article>';
       }).join('');
-    })
-    .catch(function(err){
-      console.error('[일일분석 게시판] 로딩 실패:', err);
-      listEl.innerHTML = '<div class="empty-state">데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>';
-    });
+    },
+    function(){
+      listEl.innerHTML = '<div class="empty-state">아직 등록된 분석이 없습니다. 곧 첫 글이 올라올 예정입니다.</div>';
+    }
+  );
 })();
 </script>
 

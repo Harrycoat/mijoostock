@@ -903,60 +903,16 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="analysis-render.js"></script>
   <script>
   (function(){
-    var SHEET_ID = '1lJVPwXYQlDjcI10F2vZMuxhLITK02hDVdp00WHw_3eg';
-    var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&gid=0';
     var cardEl = document.getElementById('latestAnalysisCard');
-
-    function esc(s){
-      return String(s == null ? '' : s)
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    fetch(CSV_URL, { cache: 'no-store' })
-      .then(function(res){ if(!res.ok) throw new Error('sheet fetch failed: ' + res.status); return res.text(); })
-      .then(function(csvText){
-        var parsed = Papa.parse(csvText.trim(), { header: true, skipEmptyLines: true });
-        var rows = parsed.data.filter(function(r){ return r['날짜'] && r['종목']; });
-        if(!rows.length) throw new Error('no rows');
-
-        rows.sort(function(a, b){ return String(b['날짜']).localeCompare(String(a['날짜'])); });
-        var r = rows[0];
-
-        var date = esc(r['날짜']);
-        var ticker = esc(r['종목']);
-        var file = esc(r['파일명']);
-        var support = esc(r['지지선']);
-        var flip = esc(r['감마플립']);
-        var resist = esc(r['저항선']);
-        var summary = esc(r['요약']);
-
-        var imgHtml = file
-          ? '<img src="' + file + '" alt="' + ticker + ' 실전 분석" style="width:100%; display:block; background:#fff;">'
-          : '';
-
-        var levelsHtml =
-          (support ? '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; font-weight:700; padding:5px 10px; border-radius:6px; background:rgba(61,139,255,0.14); color:var(--down);">지지선 $' + support + '</span>' : '') +
-          (flip ? '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; font-weight:700; padding:5px 10px; border-radius:6px; background:rgba(245,196,81,0.14); color:var(--amber); margin-left:8px;">감마플립 $' + flip + '</span>' : '') +
-          (resist ? '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; font-weight:700; padding:5px 10px; border-radius:6px; background:rgba(255,77,94,0.14); color:var(--up); margin-left:8px;">저항선 $' + resist + '</span>' : '');
-
-        cardEl.innerHTML =
-          '<div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--panel-2); border-bottom:1px solid var(--line);">' +
-            '<span style="font-family:\'JetBrains Mono\', monospace; font-size:13px; font-weight:700; color:var(--text);">오늘의 실전 분석 · ' + ticker + '</span>' +
-            '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; color:var(--text-faint);">' + date + ' 업데이트</span>' +
-          '</div>' +
-          imgHtml +
-          '<div style="padding:20px 18px; border-top:1px solid var(--line);">' +
-            (levelsHtml ? '<div style="margin-bottom:14px;">' + levelsHtml + '</div>' : '') +
-            (summary ? '<p style="font-size:13.5px; color:var(--text-dim); line-height:1.7;">' + summary + '</p>' : '') +
-          '</div>';
-      })
-      .catch(function(err){
-        console.error('[실전차트] 로딩 실패:', err);
-        cardEl.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--text-faint); font-size:13px;">분석 자료를 준비 중입니다.</div>';
-      });
+    MijooAnalysis.loadRows(
+      function(rows){ cardEl.innerHTML = MijooAnalysis.renderAnalysisBlock(rows[0]); },
+      function(){ cardEl.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--text-faint); font-size:13px;">분석 자료를 준비 중입니다.</div>'; }
+    );
   })();
+  </script>
   </script>
 
   <div class="section-head" style="margin-bottom:24px;">
