@@ -231,7 +231,7 @@
   }
   .term-dots{display:flex; gap:6px;}
   .term-dots span{width:8px; height:8px; border-radius:50%; background:var(--line);}
-  .term-body{padding:16px;}
+  .term-body{padding:10px 16px 4px;}
   .term-row{
     display:flex; justify-content:space-between; align-items:center; gap:10px;
     padding:9px 4px;
@@ -250,6 +250,35 @@
   .badge-up{background:rgba(255,77,94,0.14); color:var(--up);}
   .badge-down{background:rgba(61,139,255,0.14); color:var(--down);}
   .badge-cyan{background:rgba(23,232,201,0.14); color:var(--cyan);}
+
+  /* ===== 오늘의 주도주 카드 (2줄형) ===== */
+  .lead-row{
+    display:flex; flex-direction:column; gap:6px;
+    padding:12px 6px;
+    border-bottom:1px solid var(--line-soft);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .lead-row:last-child{border-bottom:none;}
+  .lead-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .lead-id{display:flex; align-items:baseline; gap:8px; min-width:0;}
+  .lead-sym{color:var(--text); font-weight:700; font-size:14px; letter-spacing:0.01em;}
+  .lead-sector{
+    color:var(--text-faint); font-size:9.5px; letter-spacing:0.06em;
+    text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .lead-price-wrap{display:flex; align-items:center; gap:8px; flex:0 0 auto;}
+  .lead-price{color:var(--text-dim); font-size:13px;}
+  .lead-bottom{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .stage-badge{
+    font-size:9px; padding:2px 6px; border-radius:4px; font-weight:800;
+    letter-spacing:0.03em; white-space:nowrap;
+  }
+  .stage-1{background:rgba(245,196,81,0.14); color:var(--amber);}
+  .stage-2{background:rgba(255,77,94,0.14); color:var(--up);}
+  .stage-3{background:rgba(245,196,81,0.14); color:var(--amber);}
+  .stage-4{background:rgba(61,139,255,0.14); color:var(--down);}
+  .lead-cw{color:var(--text-faint); font-size:10px;}
+  .lead-cw .num{color:var(--violet); font-weight:700;}
 
   /* ===== 섹션 공통 ===== */
   section{position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:48px 28px;}
@@ -478,35 +507,69 @@
         <div class="term-dots"><span></span><span></span><span></span></div>
       </div>
       <div class="term-body" id="leadersBody">
-        <div class="term-row">
-          <span class="term-sym">QQQ</span>
-          <span class="mono" style="color:var(--text-dim);">720.87</span>
-          <span class="term-badge badge-down">▼0.30%</span>
+        <div class="lead-row">
+          <div class="lead-top">
+            <div class="lead-id">
+              <span class="lead-sym">ANET</span>
+              <span class="lead-sector">Networking</span>
+            </div>
+            <div class="lead-price-wrap">
+              <span class="lead-price">191.52</span>
+              <span class="term-badge badge-up">▲1.51%</span>
+            </div>
+          </div>
+          <div class="lead-bottom">
+            <span class="stage-badge stage-2">STAGE 2 · 상승</span>
+            <span class="lead-cw">Call Wall <span class="num">+4.43%</span></span>
+          </div>
         </div>
-        <div class="term-row">
-          <span class="term-sym">SPY</span>
-          <span class="mono" style="color:var(--text-dim);">773.03</span>
-          <span class="term-badge badge-down">▼0.03%</span>
+        <div class="lead-row">
+          <div class="lead-top">
+            <div class="lead-id">
+              <span class="lead-sym">PLTR</span>
+              <span class="lead-sector">Software</span>
+            </div>
+            <div class="lead-price-wrap">
+              <span class="lead-price">190.71</span>
+              <span class="term-badge badge-up">▲2.34%</span>
+            </div>
+          </div>
+          <div class="lead-bottom">
+            <span class="stage-badge stage-2">STAGE 2 · 상승</span>
+            <span class="lead-cw">Call Wall <span class="num">+2.72%</span></span>
+          </div>
         </div>
-        <div class="term-row">
-          <span class="term-sym">ANET</span>
-          <span class="mono" style="color:var(--text-dim);">191.52</span>
-          <span class="term-badge badge-up">▲1.51%</span>
+        <div class="lead-row">
+          <div class="lead-top">
+            <div class="lead-id">
+              <span class="lead-sym">NET</span>
+              <span class="lead-sector">Security</span>
+            </div>
+            <div class="lead-price-wrap">
+              <span class="lead-price">310.59</span>
+              <span class="term-badge badge-up">▲3.44%</span>
+            </div>
+          </div>
+          <div class="lead-bottom">
+            <span class="stage-badge stage-2">STAGE 2 · 상승</span>
+            <span class="lead-cw">Call Wall <span class="num">+3.03%</span></span>
+          </div>
         </div>
-        <div class="term-row">
-          <span class="term-sym">PLTR</span>
-          <span class="mono" style="color:var(--text-dim);">190.71</span>
-          <span class="term-badge badge-up">▲2.34%</span>
-        </div>
-        <div class="term-row">
-          <span class="term-sym">NET</span>
-          <span class="mono" style="color:var(--text-dim);">310.59</span>
-          <span class="term-badge badge-up">▲3.44%</span>
-        </div>
-        <div class="term-row">
-          <span class="term-sym">MU</span>
-          <span class="mono" style="color:var(--text-dim);">861.00</span>
-          <span class="term-badge badge-down">▼1.89%</span>
+        <div class="lead-row">
+          <div class="lead-top">
+            <div class="lead-id">
+              <span class="lead-sym">MU</span>
+              <span class="lead-sector">Semis</span>
+            </div>
+            <div class="lead-price-wrap">
+              <span class="lead-price">861.00</span>
+              <span class="term-badge badge-down">▼1.89%</span>
+            </div>
+          </div>
+          <div class="lead-bottom">
+            <span class="stage-badge stage-3">STAGE 3 · 고점권</span>
+            <span class="lead-cw">Call Wall <span class="num">+2.21%</span></span>
+          </div>
         </div>
       </div>
       <div class="term-row" style="border-top:1px solid var(--line); padding-top:12px; margin-top:2px; padding-left:22px; padding-right:22px; padding-bottom:16px;">
@@ -522,6 +585,13 @@
   const titleEl = document.getElementById('leadersTitle');
   const bodyEl = document.getElementById('leadersBody');
 
+  const STAGE_META = {
+    1: { label: '바닥권', cls: 'stage-1' },
+    2: { label: '상승',   cls: 'stage-2' },
+    3: { label: '고점권', cls: 'stage-3' },
+    4: { label: '하락',   cls: 'stage-4' },
+  };
+
   fetch('https://gexoption.com/leaders_report.json', { cache: 'no-store' })
     .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
     .then(function(data){
@@ -529,7 +599,7 @@
       const rows = wave1
         .filter(function(x){ return x.spot != null && x.price_change_pct != null; })
         .sort(function(a, b){ return b.price_change_pct - a.price_change_pct; })
-        .slice(0, 6);
+        .slice(0, 5);
 
       if(!rows.length) return; // 실패 시 정적 폴백 유지
 
@@ -538,10 +608,29 @@
         const badgeClass = up ? 'badge-up' : 'badge-down';
         const arrow = up ? '▲' : '▼';
         const pct = Math.abs(r.price_change_pct).toFixed(2);
-        return '<div class="term-row">' +
-          '<span class="term-sym">' + r.ticker + '</span>' +
-          '<span class="mono" style="color:var(--text-dim);">' + r.spot.toFixed(2) + '</span>' +
-          '<span class="term-badge ' + badgeClass + '">' + arrow + pct + '%</span>' +
+        const sector = r.sector ? r.sector.charAt(0) + r.sector.slice(1).toLowerCase() : '';
+
+        const sm = STAGE_META[r.stage];
+        const stageHtml = sm
+          ? '<span class="stage-badge ' + sm.cls + '">STAGE ' + r.stage + ' · ' + sm.label + '</span>'
+          : '<span class="stage-badge" style="color:var(--text-faint); background:rgba(255,255,255,0.05);">STAGE N/A</span>';
+
+        const cwHtml = (r.call_wall_distance_pct != null)
+          ? 'Call Wall <span class="num">' + (r.call_wall_distance_pct >= 0 ? '+' : '') + r.call_wall_distance_pct.toFixed(2) + '%</span>'
+          : '데이터 준비중';
+
+        return '<div class="lead-row">' +
+          '<div class="lead-top">' +
+            '<div class="lead-id">' +
+              '<span class="lead-sym">' + r.ticker + '</span>' +
+              '<span class="lead-sector">' + sector + '</span>' +
+            '</div>' +
+            '<div class="lead-price-wrap">' +
+              '<span class="lead-price">' + r.spot.toFixed(2) + '</span>' +
+              '<span class="term-badge ' + badgeClass + '">' + arrow + pct + '%</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="lead-bottom">' + stageHtml + '<span class="lead-cw">' + cwHtml + '</span></div>' +
         '</div>';
       }).join('');
 
