@@ -643,60 +643,12 @@
         dateLabel = (d.getMonth()+1) + '/' + d.getDate() + ' 기준';
       }
       titleEl.textContent = 'MiJooStock / 오늘의 주도주' + (dateLabel ? ' · ' + dateLabel : '');
-
-      // 감마 스퀴즈 후보 (Negative Gamma + 당일 상승 전환)
-      const gsEl = document.getElementById('gammaSqueezeBody');
-      const gsWrap = document.getElementById('gammaSqueezeCard');
-      const candidates = data.gamma_squeeze_candidates || [];
-      if (gsEl && gsWrap) {
-        if (!candidates.length) {
-          gsWrap.style.display = 'none';
-        } else {
-          gsWrap.style.display = '';
-          gsEl.innerHTML = candidates.slice(0, 6).map(function(c){
-            const pct = c.price_change_pct.toFixed(2);
-            const cw = (c.call_wall_distance_pct != null)
-              ? 'Call Wall <span class="num">' + (c.call_wall_distance_pct >= 0 ? '+' : '') + c.call_wall_distance_pct.toFixed(2) + '%</span>'
-              : '';
-            return '<div class="lead-row">' +
-              '<div class="lead-top">' +
-                '<div class="lead-id">' +
-                  '<span class="lead-sym">' + c.ticker + '</span>' +
-                  '<span class="lead-sector">' + (c.sector || '') + '</span>' +
-                '</div>' +
-                '<div class="lead-price-wrap">' +
-                  '<span class="lead-price">' + (c.spot != null ? c.spot.toFixed(2) : '—') + '</span>' +
-                  '<span class="term-badge badge-up">▲' + pct + '%</span>' +
-                '</div>' +
-              '</div>' +
-              '<div class="lead-bottom">' +
-                '<span class="stage-badge" style="background:rgba(167,139,250,0.14); color:var(--violet);">NEGATIVE GAMMA</span>' +
-                (cw ? '<span class="lead-cw">' + cw + '</span>' : '') +
-              '</div>' +
-            '</div>';
-          }).join('');
-        }
-      }
     })
     .catch(function(){
       titleEl.textContent = 'MiJooStock / 오늘의 주도주';
     });
 })();
 </script>
-
-<!-- 감마 스퀴즈 후보 -->
-<div id="gammaSqueezeCard" style="max-width:1240px; margin:0 auto; padding:0 28px 48px; display:none;">
-  <div style="border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 20px 40px -20px rgba(0,0,0,0.5); background:var(--panel);">
-    <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--panel-2); border-bottom:1px solid var(--line);">
-      <span style="font-family:'JetBrains Mono', monospace; font-size:14px; font-weight:700; color:var(--text);">⚡ 오늘의 감마 스퀴즈 후보</span>
-      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-faint);">Negative Gamma · 당일 상승전환</span>
-    </div>
-    <div id="gammaSqueezeBody" class="term-body"></div>
-    <div style="padding:12px 22px 16px; border-top:1px solid var(--line); font-size:11px; color:var(--text-faint);">
-      마켓메이커의 델타 헤지 매수가 상승을 가속시킬 수 있는 구간의 종목입니다. 교육 목적의 참고 자료이며 투자 권유가 아닙니다.
-    </div>
-  </div>
-</div>
 
 <!-- 4트랙 -->
 <section id="tracks">
