@@ -913,7 +913,6 @@
     );
   })();
   </script>
-  </script>
 
   <div class="section-head" style="margin-bottom:24px;">
     <p class="section-desc">아래에서 QQQ 기준 실시간 차트를 직접 확인하거나, 종목 검색으로 원하는 티커로 바로 바꿔볼 수 있습니다.</p>
@@ -939,6 +938,9 @@
           "hide_top_toolbar": false,
           "hide_legend": false,
           "save_image": false,
+          "studies": [
+            { "id": "hullMA@tv-basicstudies", "inputs": { "length": 21 } }
+          ],
           "container_id": "tv_live_chart"
         });
       </script>
