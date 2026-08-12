@@ -826,30 +826,61 @@
 <script>
 (function(){
   fetch('https://www.gexoption.com/api/search?ticker=QQQ', { cache: 'no-store' })
-    .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
+    .then(function(res){ if(!res.ok) throw new Error('fetch failed: ' + res.status); return res.json(); })
     .then(function(data){
-      if(!data || data.error || !data.gex_by_strike || !data.gex_by_strike.length) return;
+      if(!data || data.error) throw new Error(data && data.error ? data.error : 'no data');
+      if(!data.gex_by_strike || !data.gex_by_strike.length) throw new Error('gex_by_strike empty');
 
-      const rows = data.gex_by_strike;
-      const maxAbs = Math.max.apply(null, rows.map(function(r){ return Math.abs(r.net_gex); })) || 1;
+      const spot = data.spot;
+      let rows = data.gex_by_strike.slice().sort(function(a, b){ return a.strike - b.strike; });
+
+      // 현재가 근처 구간만 남겨서 막대가 너무 잘게 쪼개지지 않게 함 (최대 24개)
+      if (spot) {
+        const nearSpot = rows.filter(function(r){
+          return r.strike >= spot * 0.85 && r.strike <= spot * 1.15;
+        });
+        if (nearSpot.length >= 5) rows = nearSpot;
+      }
+      const MAX_BARS = 24;
+      if (rows.length > MAX_BARS) {
+        const centerIdx = Math.floor(rows.length / 2);
+        const half = Math.floor(MAX_BARS / 2);
+        rows = rows.slice(Math.max(0, centerIdx - half), Math.max(0, centerIdx - half) + MAX_BARS);
+      }
+
+      const maxAbs = Math.max.apply(null, rows.map(function(r){ return Math.abs(r.net_gex || 0); })) || 1;
 
       const barsEl = document.getElementById('gexLiveBars');
+      if (!barsEl) throw new Error('gexLiveBars element not found');
+
       barsEl.innerHTML = rows.map(function(r){
-        const pct = Math.max(6, Math.round(Math.abs(r.net_gex) / maxAbs * 100));
+        const pct = Math.max(6, Math.round(Math.abs(r.net_gex || 0) / maxAbs * 100));
         let color;
         if (r.strike === data.gamma_flip) color = 'var(--cyan)';
-        else if (r.net_gex >= 0) color = 'var(--up)';
+        else if ((r.net_gex || 0) >= 0) color = 'var(--up)';
         else color = 'var(--down)';
         return '<div class="gex-bar" title="' + r.strike + '" style="height:' + pct + '%; background:' + color + ';"></div>';
       }).join('');
 
-      document.getElementById('gexLiveTicker').textContent = data.ticker + ' · GAMMA EXPOSURE';
-      if (data.spot != null) document.getElementById('gexLivePrice').textContent = data.spot.toFixed(2);
-      if (data.put_wall != null) document.getElementById('gexLivePut').textContent = 'PUT WALL ' + data.put_wall;
-      if (data.gamma_flip != null) document.getElementById('gexLiveFlip').textContent = 'FLIP ' + data.gamma_flip;
-      if (data.call_wall != null) document.getElementById('gexLiveCall').textContent = 'CALL WALL ' + data.call_wall;
+      const tickerEl = document.getElementById('gexLiveTicker');
+      if (tickerEl && data.ticker) tickerEl.textContent = data.ticker + ' · GAMMA EXPOSURE';
+
+      const priceEl = document.getElementById('gexLivePrice');
+      if (priceEl && data.spot != null) priceEl.textContent = data.spot.toFixed(2);
+
+      const putEl = document.getElementById('gexLivePut');
+      if (putEl && data.put_wall != null) putEl.textContent = 'PUT WALL ' + data.put_wall;
+
+      const flipEl = document.getElementById('gexLiveFlip');
+      if (flipEl && data.gamma_flip != null) flipEl.textContent = 'FLIP ' + data.gamma_flip;
+
+      const callEl = document.getElementById('gexLiveCall');
+      if (callEl && data.call_wall != null) callEl.textContent = 'CALL WALL ' + data.call_wall;
     })
-    .catch(function(){ /* 실패 시 정적 예시 그대로 유지 */ });
+    .catch(function(err){
+      console.error('[GEX 실전차트] 로딩 실패:', err);
+      /* 실패 시 정적 예시 그대로 유지 */
+    });
 })();
 </script>
 
