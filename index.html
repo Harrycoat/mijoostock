@@ -592,7 +592,7 @@
     4: { label: '하락',   cls: 'stage-4' },
   };
 
-  fetch('https://gexoption.com/leaders_report.json', { cache: 'no-store' })
+  fetch('https://www.gexoption.com/leaders_report.json', { cache: 'no-store' })
     .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
     .then(function(data){
       const wave1 = (data.categories && data.categories.wave1) || [];
