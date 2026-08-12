@@ -72,7 +72,7 @@
 
     return '<div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--panel-2); border-bottom:1px solid var(--line);">' +
         '<span style="font-family:\'JetBrains Mono\', monospace; font-size:13px; font-weight:700; color:var(--text);">오늘의 실전 분석 · ' + ticker + '</span>' +
-        '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; color:var(--text-faint);">' + date + ' 업데이트</span>' +
+        '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; color:var(--text);">' + date + ' 업데이트</span>' +
       '</div>' +
       imgHtml +
       '<div style="padding:24px 20px; border-top:1px solid var(--line);">' +
