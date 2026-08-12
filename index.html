@@ -474,10 +474,10 @@
 
     <div class="term-card">
       <div class="term-titlebar">
-        <span>MiJooStock / 오늘의 시세 · 8/10 종가기준</span>
+        <span id="leadersTitle">MiJooStock / 오늘의 주도주 · 불러오는 중...</span>
         <div class="term-dots"><span></span><span></span><span></span></div>
       </div>
-      <div class="term-body">
+      <div class="term-body" id="leadersBody">
         <div class="term-row">
           <span class="term-sym">QQQ</span>
           <span class="mono" style="color:var(--text-dim);">720.87</span>
@@ -508,14 +508,55 @@
           <span class="mono" style="color:var(--text-dim);">861.00</span>
           <span class="term-badge badge-down">▼1.89%</span>
         </div>
-        <div class="term-row" style="border-top:1px solid var(--line); padding-top:12px; margin-top:2px;">
-          <span style="color:var(--text-faint); font-size:11px;">15분 지연 · 자동 갱신</span>
-          <a href="https://gexoption.com" target="_blank" rel="noopener" style="color:var(--cyan); font-size:11px; font-weight:700;">전체 시세 보기 →</a>
-        </div>
+      </div>
+      <div class="term-row" style="border-top:1px solid var(--line); padding-top:12px; margin-top:2px; padding-left:22px; padding-right:22px; padding-bottom:16px;">
+        <span style="color:var(--text-faint); font-size:11px;">15분 지연 · 매일 자동 갱신</span>
+        <a href="https://gexoption.com" target="_blank" rel="noopener" style="color:var(--cyan); font-size:11px; font-weight:700;">전체 시세 보기 →</a>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+(function(){
+  const titleEl = document.getElementById('leadersTitle');
+  const bodyEl = document.getElementById('leadersBody');
+
+  fetch('https://gexoption.com/leaders_report.json', { cache: 'no-store' })
+    .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
+    .then(function(data){
+      const wave1 = (data.categories && data.categories.wave1) || [];
+      const rows = wave1
+        .filter(function(x){ return x.spot != null && x.price_change_pct != null; })
+        .sort(function(a, b){ return b.price_change_pct - a.price_change_pct; })
+        .slice(0, 6);
+
+      if(!rows.length) return; // 실패 시 정적 폴백 유지
+
+      bodyEl.innerHTML = rows.map(function(r){
+        const up = r.price_change_pct >= 0;
+        const badgeClass = up ? 'badge-up' : 'badge-down';
+        const arrow = up ? '▲' : '▼';
+        const pct = Math.abs(r.price_change_pct).toFixed(2);
+        return '<div class="term-row">' +
+          '<span class="term-sym">' + r.ticker + '</span>' +
+          '<span class="mono" style="color:var(--text-dim);">' + r.spot.toFixed(2) + '</span>' +
+          '<span class="term-badge ' + badgeClass + '">' + arrow + pct + '%</span>' +
+        '</div>';
+      }).join('');
+
+      let dateLabel = '';
+      if(data.generated_at){
+        const d = new Date(data.generated_at);
+        dateLabel = (d.getMonth()+1) + '/' + d.getDate() + ' 기준';
+      }
+      titleEl.textContent = 'MiJooStock / 오늘의 주도주' + (dateLabel ? ' · ' + dateLabel : '');
+    })
+    .catch(function(){
+      titleEl.textContent = 'MiJooStock / 오늘의 주도주';
+    });
+})();
+</script>
 
 <!-- 4트랙 -->
 <section id="tracks">
