@@ -252,9 +252,10 @@
   .badge-down{background:rgba(61,139,255,0.14); color:var(--down);}
   .badge-cyan{background:rgba(23,232,201,0.14); color:var(--cyan);}
 
-  /* ===== 오늘의 주도주 카드 (2줄형) ===== */
+  /* ===== 오늘의 주도주 카드 (한줄형) ===== */
   .lead-row{
-    display:flex; flex-direction:column; gap:6px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    gap:8px 16px;
     padding:12px 6px;
     border-bottom:1px solid var(--line-soft);
     font-family:'JetBrains Mono', monospace;
@@ -511,68 +512,20 @@
       </div>
       <div class="term-body" id="leadersBody">
         <div class="lead-row">
-          <div class="lead-top">
-            <div class="lead-id">
-              <span class="lead-sym">ANET</span>
-              <span class="lead-sector">Networking</span>
-            </div>
-            <div class="lead-price-wrap">
-              <span class="lead-price">191.52</span>
-              <span class="term-badge badge-up">▲1.51%</span>
-            </div>
-          </div>
-          <div class="lead-bottom">
-            <span class="stage-badge stage-2">STAGE 2 · 상승</span>
-            <span class="lead-cw">Call Wall <span class="num">+4.43%</span></span>
-          </div>
+          <span class="lead-sym">ANET</span>
+          <span class="lead-price">$183.75</span>
+          <span class="stage-badge stage-2">STAGE 2 · 상승국면</span>
+          <span class="lead-cw">Gamma Flip <span class="num">192.5</span></span>
+          <span class="lead-cw">Call Wall <span class="num">192.5</span></span>
+          <span class="lead-cw">Put Wall <span class="num">180</span></span>
         </div>
         <div class="lead-row">
-          <div class="lead-top">
-            <div class="lead-id">
-              <span class="lead-sym">PLTR</span>
-              <span class="lead-sector">Software</span>
-            </div>
-            <div class="lead-price-wrap">
-              <span class="lead-price">190.71</span>
-              <span class="term-badge badge-up">▲2.34%</span>
-            </div>
-          </div>
-          <div class="lead-bottom">
-            <span class="stage-badge stage-2">STAGE 2 · 상승</span>
-            <span class="lead-cw">Call Wall <span class="num">+2.72%</span></span>
-          </div>
-        </div>
-        <div class="lead-row">
-          <div class="lead-top">
-            <div class="lead-id">
-              <span class="lead-sym">NET</span>
-              <span class="lead-sector">Security</span>
-            </div>
-            <div class="lead-price-wrap">
-              <span class="lead-price">310.59</span>
-              <span class="term-badge badge-up">▲3.44%</span>
-            </div>
-          </div>
-          <div class="lead-bottom">
-            <span class="stage-badge stage-2">STAGE 2 · 상승</span>
-            <span class="lead-cw">Call Wall <span class="num">+3.03%</span></span>
-          </div>
-        </div>
-        <div class="lead-row">
-          <div class="lead-top">
-            <div class="lead-id">
-              <span class="lead-sym">MU</span>
-              <span class="lead-sector">Semis</span>
-            </div>
-            <div class="lead-price-wrap">
-              <span class="lead-price">861.00</span>
-              <span class="term-badge badge-down">▼1.89%</span>
-            </div>
-          </div>
-          <div class="lead-bottom">
-            <span class="stage-badge stage-3">STAGE 3 · 고점권</span>
-            <span class="lead-cw">Call Wall <span class="num">+2.21%</span></span>
-          </div>
+          <span class="lead-sym">PLTR</span>
+          <span class="lead-price">$173.96</span>
+          <span class="stage-badge stage-1">STAGE 1 · 바닥다지기</span>
+          <span class="lead-cw">Gamma Flip <span class="num">130</span></span>
+          <span class="lead-cw">Call Wall <span class="num">180</span></span>
+          <span class="lead-cw">Put Wall <span class="num">170</span></span>
         </div>
       </div>
       <div class="term-row" style="border-top:1px solid var(--line); padding-top:12px; margin-top:2px; padding-left:22px; padding-right:22px; padding-bottom:16px;">
@@ -588,52 +541,32 @@
   const titleEl = document.getElementById('leadersTitle');
   const bodyEl = document.getElementById('leadersBody');
 
-  const STAGE_META = {
-    1: { label: '바닥권', cls: 'stage-1' },
-    2: { label: '상승',   cls: 'stage-2' },
-    3: { label: '고점권', cls: 'stage-3' },
-    4: { label: '하락',   cls: 'stage-4' },
-  };
+  // ★ 여기 티커만 추가/삭제/순서 변경하면 사이트에 바로 반영됩니다 (최대 10개까지만 표시) ★
+  const MY_TICKERS = ['ANET', 'PLTR', 'AMZN', 'GOOGL', 'MSFT', 'SNDK', 'MU', 'WDC', 'LRCX', 'TER'];
 
   fetch('https://www.gexoption.com/leaders_report.json', { cache: 'no-store' })
     .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
     .then(function(data){
-      const wave1 = (data.categories && data.categories.wave1) || [];
-      const rows = wave1
-        .filter(function(x){ return x.spot != null && x.price_change_pct != null; })
-        .sort(function(a, b){ return b.price_change_pct - a.price_change_pct; })
-        .slice(0, 5);
+      const all = []
+        .concat(data.categories.wave1 || [])
+        .concat(data.categories.wave2 || [])
+        .concat(data.categories.speculative || []);
+
+      const rows = MY_TICKERS
+        .map(function(t){ return all.find(function(r){ return r.ticker === t; }); })
+        .filter(Boolean)
+        .slice(0, 10);
 
       if(!rows.length) return; // 실패 시 정적 폴백 유지
 
       bodyEl.innerHTML = rows.map(function(r){
-        const up = r.price_change_pct >= 0;
-        const badgeClass = up ? 'badge-up' : 'badge-down';
-        const arrow = up ? '▲' : '▼';
-        const pct = Math.abs(r.price_change_pct).toFixed(2);
-        const sector = r.sector ? r.sector.charAt(0) + r.sector.slice(1).toLowerCase() : '';
-
-        const sm = STAGE_META[r.stage];
-        const stageHtml = sm
-          ? '<span class="stage-badge ' + sm.cls + '">STAGE ' + r.stage + ' · ' + sm.label + '</span>'
-          : '<span class="stage-badge" style="color:var(--text-faint); background:rgba(255,255,255,0.05);">STAGE N/A</span>';
-
-        const cwHtml = (r.call_wall_distance_pct != null)
-          ? 'Call Wall <span class="num">' + (r.call_wall_distance_pct >= 0 ? '+' : '') + r.call_wall_distance_pct.toFixed(2) + '%</span>'
-          : '데이터 준비중';
-
         return '<div class="lead-row">' +
-          '<div class="lead-top">' +
-            '<div class="lead-id">' +
-              '<span class="lead-sym">' + r.ticker + '</span>' +
-              '<span class="lead-sector">' + sector + '</span>' +
-            '</div>' +
-            '<div class="lead-price-wrap">' +
-              '<span class="lead-price">' + r.spot.toFixed(2) + '</span>' +
-              '<span class="term-badge ' + badgeClass + '">' + arrow + pct + '%</span>' +
-            '</div>' +
-          '</div>' +
-          '<div class="lead-bottom">' + stageHtml + '<span class="lead-cw">' + cwHtml + '</span></div>' +
+          '<span class="lead-sym">' + r.ticker + '</span>' +
+          '<span class="lead-price">$' + r.spot.toFixed(2) + '</span>' +
+          '<span class="stage-badge stage-' + r.stage + '">STAGE ' + r.stage + ' · ' + r.stage_label + '</span>' +
+          '<span class="lead-cw">Gamma Flip <span class="num">' + r.gamma_flip + '</span></span>' +
+          '<span class="lead-cw">Call Wall <span class="num">' + r.call_wall + '</span></span>' +
+          '<span class="lead-cw">Put Wall <span class="num">' + r.put_wall + '</span></span>' +
         '</div>';
       }).join('');
 
