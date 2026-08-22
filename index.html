@@ -512,7 +512,7 @@
       </div>
       <div class="term-body" id="leadersBody">
         <div class="lead-row">
-          <span class="lead-sym">ANET</span>
+          <span class="lead-sym"></span>
           <span class="lead-price">$183.75</span>
           <span class="stage-badge stage-2">STAGE 2 · 상승국면</span>
           <span class="lead-cw">Gamma Flip <span class="num">192.5</span></span>
@@ -542,7 +542,7 @@
   const bodyEl = document.getElementById('leadersBody');
 
   // ★ 여기 티커만 추가/삭제/순서 변경하면 사이트에 바로 반영됩니다 (최대 10개까지만 표시) ★
-  const MY_TICKERS = ['ANET', 'PLTR', 'AMZN', 'GOOGL', 'MSFT', 'SNDK', 'MU', 'WDC', 'LRCX', 'TER'];
+  const MY_TICKERS = ['TSLA', 'PLTR', 'SPCX', 'GOOGL', 'MSFT', 'HOOD', 'BMNR', 'EOSE', 'LRCX', 'TER'];
 
   fetch('https://www.gexoption.com/leaders_report.json', { cache: 'no-store' })
     .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
