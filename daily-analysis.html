@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>일일 실전 차트분석 | 미주스탁닷컴</title>
-<meta name="description" content="Harry가 매일 직접 그리는 지지선·저항선·감마플립 실전 차트분석 아카이브. 미주 한인을 위한 미국주식 실전 매매 인사이트.">
-<meta property="og:title" content="일일 실전 차트분석 | 미주스탁닷컴">
-<meta property="og:description" content="Harry가 매일 직접 그리는 지지선·저항선·감마플립 실전 차트분석 아카이브.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://mijoostock.com/daily-analysis.html">
-<meta property="og:locale" content="ko_KR">
+<title>실전 GEX 분석 게시판 | 미주스탁닷컴</title>
+<meta name="description" content="급등주 Call Wall/Put Wall 케이스 스터디, 한인 선호 종목 GEX 전략, 트레이딩 Q&A까지 — 미주스탁닷컴 실전 GEX 분석 게시판.">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4689151958671592"
      crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -42,105 +37,210 @@
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
-  .mono{font-family:'JetBrains Mono', monospace;}
   a{color:inherit; text-decoration:none;}
 
-  .nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,13,19,0.9); backdrop-filter:blur(10px);
+  header.nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(10,13,19,0.86);
+    backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .nav-inner{
-    max-width:1240px; margin:0 auto; padding:16px 28px;
+    max-width:960px; margin:0 auto;
     display:flex; align-items:center; justify-content:space-between;
+    padding:16px 20px;
   }
-  .logo{display:flex; align-items:center; gap:8px; font-weight:800; font-size:17px;}
-  .logo-mark{
-    width:28px; height:28px; border-radius:7px;
-    background:linear-gradient(135deg, var(--cyan), var(--violet));
-    display:flex; align-items:center; justify-content:center;
-    font-weight:900; color:#04120f; font-size:14px;
+  .logo{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700; font-size:16px; letter-spacing:-0.02em;
   }
-  .dim{color:var(--text-faint); font-weight:600;}
-  .links{display:flex; gap:26px; font-size:14px; color:var(--text-dim);}
-  .links a:hover{color:var(--text);}
-  @media(max-width:860px){ .links{display:none;} }
+  .logo .dim{color:var(--text-faint); font-weight:500;}
+  .back-link{font-size:13px; color:var(--text-dim);}
 
-  main{max-width:900px; margin:0 auto; padding:48px 28px 80px;}
+  main{max-width:960px; margin:0 auto; padding:32px 20px 80px;}
 
-  .page-head{margin-bottom:40px;}
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint);
-    text-transform:uppercase; letter-spacing:0.12em; margin-bottom:10px;
+  .page-head{margin-bottom:24px;}
+  .page-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:0.12em;
+    margin-bottom:8px;
   }
-  .page-title{font-size:32px; font-weight:800; letter-spacing:-0.02em; margin-bottom:12px;}
-  .page-title span{color:var(--cyan);}
-  .page-desc{color:var(--text-dim); font-size:14.5px; line-height:1.7; max-width:640px;}
+  .page-title{font-size:26px; font-weight:800; letter-spacing:-0.02em;}
+  .page-desc{margin-top:10px; color:var(--text-dim); font-size:14px;}
 
-  #boardList{display:flex; flex-direction:column; gap:24px;}
-
-  .post-card{
-    background:var(--panel); border:1px solid var(--line); border-radius:12px;
-    overflow:hidden; box-shadow:0 20px 40px -20px rgba(0,0,0,0.5);
+  .tabs{
+    display:flex; gap:6px; flex-wrap:wrap;
+    margin-bottom:20px;
   }
-  .post-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 18px; background:var(--panel-2); border-bottom:1px solid var(--line);
+  .tab{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; font-weight:600;
+    padding:8px 14px; border-radius:6px;
+    border:1px solid var(--line);
+    background:var(--panel-2); color:var(--text-dim);
+    cursor:pointer;
   }
-  .post-ticker{font-family:'JetBrains Mono', monospace; font-weight:800; font-size:14px; color:var(--text);}
-  .post-date{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-faint);}
-  .post-img{width:100%; display:block; background:#fff;}
-  .post-body{padding:16px 18px;}
-  .level-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
-  .level-badge{
-    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700;
-    padding:5px 10px; border-radius:6px;
-  }
-  .lv-support{background:rgba(61,139,255,0.14); color:var(--down);}
-  .lv-flip{background:rgba(245,196,81,0.14); color:var(--amber);}
-  .lv-resist{background:rgba(255,77,94,0.14); color:var(--up);}
-  .post-summary{font-size:13.5px; color:var(--text-dim); line-height:1.7;}
-
-  .empty-state, .loading-state{
-    text-align:center; padding:60px 20px; color:var(--text-faint);
-    border:1px dashed var(--line); border-radius:12px; font-size:13.5px;
+  .tab.active{
+    background:var(--cyan); color:#04120f; border-color:var(--cyan);
   }
 
-  footer{border-top:1px solid var(--line); padding:28px; text-align:center; color:var(--text-faint); font-size:12px;}
+  .board-list{
+    border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    background:var(--panel);
+  }
+  .board-row:last-child{border-bottom:none !important;}
+  .board-row:hover{background:var(--panel-2);}
+
+  .empty-state{
+    padding:60px 20px; text-align:center;
+    color:var(--text-faint); font-size:13px;
+  }
+
+  .detail-wrap{
+    display:none;
+    border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    background:var(--panel);
+    margin-bottom:24px;
+  }
+  .detail-back{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    color:var(--cyan); cursor:pointer; margin-bottom:16px;
+  }
+
+  footer{
+    padding:32px 20px 60px; max-width:960px; margin:0 auto;
+    font-size:12px; color:var(--text-faint);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
 </style>
 </head>
 <body>
 
 <header class="nav">
   <div class="nav-inner">
-    <a class="logo" href="index.html" style="color:inherit;">
-      <div class="logo-mark">M</div>
-      MiJooStock<span class="dim">.com</span>
-    </a>
-    <nav class="links">
-      <a href="guide-account.html">기초 가이드</a>
-      <a href="guide-indicators.html">차트 분석</a>
-      <a href="daily-analysis.html" style="color:var(--cyan);">일일 실전분석</a>
-      <a href="guide-gex.html">GEX 옵션</a>
-      <a href="guide-covered-call.html">월세 프로젝트</a>
-      <a href="community.html">커뮤니티</a>
-    </nav>
+    <a class="logo" href="index.html">MiJooStock<span class="dim">.com</span></a>
+    <a class="back-link" href="index.html">← 홈으로</a>
   </div>
 </header>
 
 <main>
   <div class="page-head">
-    <div class="eyebrow">Daily Analysis</div>
-    <h1 class="page-title">Harry의 <span>일일 실전 차트분석</span></h1>
-    <p class="page-desc">매일 직접 그리는 지지선·저항선·감마플립 기준 실전 분석입니다. 교육 목적의 참고 자료이며 투자 권유가 아닙니다.</p>
+    <div class="page-eyebrow">Board</div>
+    <h1 class="page-title">실전 GEX 분석</h1>
+    <p class="page-desc">급등주 Call Wall/Put Wall 케이스, 한인 선호 종목 전략, 트레이딩 Q&amp;A를 한곳에서 확인하세요.</p>
   </div>
 
-  <div id="boardList">
-    <div class="loading-state">불러오는 중...</div>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-cat="">전체</div>
+    <div class="tab" data-cat="급등주케이스">급등주 케이스</div>
+    <div class="tab" data-cat="한인선호종목">한인 선호 종목</div>
+    <div class="tab" data-cat="트레이딩QNA">트레이딩 Q&amp;A</div>
+  </div>
+
+  <div class="detail-wrap" id="detailWrap">
+    <div style="padding:16px 16px 0;">
+      <span class="detail-back" id="detailBack">← 목록으로</span>
+    </div>
+    <div id="detailBody"></div>
+  </div>
+
+  <div class="board-list" id="boardList">
+    <div class="empty-state">불러오는 중...</div>
   </div>
 </main>
 
-<div style="max-width:900px; margin:0 auto 20px; padding:0 28px;">
+<footer>
+  <div>© 2026 MiJooStock.com</div>
+  <div style="display:flex; gap:16px;">
+    <a href="terms.html">이용약관</a>
+    <a href="privacy.html">개인정보처리방침</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="analysis-render.js"></script>
+<script>
+(function(){
+  var allRows = [];
+  var activeCategory = '';
+
+  function getUrlCategory(){
+    var params = new URLSearchParams(window.location.search);
+    return params.get('cat') || '';
+  }
+
+  function renderList(){
+    var listEl = document.getElementById('boardList');
+    var filtered = activeCategory
+      ? allRows.filter(function(r){ return r['카테고리'] === activeCategory; })
+      : allRows;
+
+    if (!filtered.length){
+      listEl.innerHTML = '<div class="empty-state">아직 게시된 글이 없습니다.</div>';
+      return;
+    }
+
+    listEl.innerHTML = filtered.map(function(r){
+      var realIndex = allRows.indexOf(r);
+      return MijooAnalysis.renderListRow(r, realIndex);
+    }).join('');
+
+    var rows = listEl.querySelectorAll('.board-row');
+    rows.forEach(function(rowEl){
+      rowEl.addEventListener('click', function(){
+        var idx = parseInt(rowEl.getAttribute('data-index'), 10);
+        showDetail(allRows[idx]);
+      });
+    });
+  }
+
+  function showDetail(r){
+    document.getElementById('detailBody').innerHTML = MijooAnalysis.renderAnalysisBlock(r);
+    document.getElementById('detailWrap').style.display = 'block';
+    document.getElementById('boardList').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function hideDetail(){
+    document.getElementById('detailWrap').style.display = 'none';
+    document.getElementById('boardList').style.display = 'block';
+  }
+
+  document.getElementById('detailBack').addEventListener('click', hideDetail);
+
+  var tabEls = document.querySelectorAll('.tab');
+  tabEls.forEach(function(tabEl){
+    tabEl.addEventListener('click', function(){
+      tabEls.forEach(function(t){ t.classList.remove('active'); });
+      tabEl.classList.add('active');
+      activeCategory = tabEl.getAttribute('data-cat');
+      hideDetail();
+      renderList();
+    });
+  });
+
+  MijooAnalysis.loadRows(
+    function(rows){
+      allRows = rows;
+      var urlCat = getUrlCategory();
+      if (urlCat){
+        activeCategory = urlCat;
+        tabEls.forEach(function(t){
+          t.classList.toggle('active', t.getAttribute('data-cat') === urlCat);
+        });
+      }
+      renderList();
+    },
+    function(){
+      document.getElementById('boardList').innerHTML = '<div class="empty-state">분석 자료를 불러오지 못했습니다.</div>';
+    }
+  );
+})();
+</script>
+
+<div style="max-width:960px; margin:20px auto 0; padding:0 20px;">
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-4689151958671592"
@@ -151,27 +251,6 @@
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
-
-<footer>© MiJooStock.com · 본 콘텐츠는 교육 목적이며 투자 권유가 아닙니다.</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="analysis-render.js"></script>
-<script>
-(function(){
-  var listEl = document.getElementById('boardList');
-
-  MijooAnalysis.loadRows(
-    function(rows){
-      listEl.innerHTML = rows.map(function(r){
-        return '<article class="post-card">' + MijooAnalysis.renderAnalysisBlock(r) + '</article>';
-      }).join('');
-    },
-    function(){
-      listEl.innerHTML = '<div class="empty-state">아직 등록된 분석이 없습니다. 곧 첫 글이 올라올 예정입니다.</div>';
-    }
-  );
-})();
-</script>
 
 </body>
 </html>
