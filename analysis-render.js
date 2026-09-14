@@ -1,10 +1,20 @@
 /* analysis-render.js
    구글시트 기반 "일일 실전 차트분석" 렌더링 공용 스크립트.
-   index.html(최신 1건)과 daily-analysis.html(전체 목록)이 함께 사용합니다.
+   index.html(최신 1건 → 게시판 요약)과 daily-analysis.html(전체 목록)이 함께 사용합니다.
+
+   구글시트 컬럼: 날짜, 종목, 파일명, 지지선, 감마플립, 저항선, 헤드라인, 설명, 핵심요약, 카테고리
+   카테고리 값: 급등주케이스 / 한인선호종목 / 트레이딩QNA
 */
 (function(global){
   var SHEET_ID = '1lJVPwXYQlDjcI10F2vZMuxhLITK02hDVdp00WHw_3eg';
   var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&gid=0';
+
+  var CATEGORY_META = {
+    '급등주케이스': { label: '급등주 케이스',   color: 'var(--up)' },
+    '한인선호종목': { label: '한인 선호 종목',  color: 'var(--amber)' },
+    '트레이딩QNA':  { label: '트레이딩 Q&A',    color: 'var(--violet)' }
+  };
+  var CATEGORY_ORDER = ['급등주케이스', '한인선호종목', '트레이딩QNA'];
 
   function esc(s){
     return String(s == null ? '' : s)
@@ -22,6 +32,7 @@
     var headline = esc(r['헤드라인']);
     var desc = esc(r['설명']);
     var keyQuote = esc(r['핵심요약']);
+    var meta = CATEGORY_META[r['카테고리']];
 
     var imgHtml = file
       ? '<img src="' + file + '" alt="' + ticker + ' 실전 분석" style="width:100%; display:block; background:#fff;" loading="lazy">'
@@ -70,8 +81,12 @@
       '</div>';
     }
 
+    var catBadgeHtml = meta
+      ? '<span style="font-family:\'JetBrains Mono\', monospace; font-size:10px; font-weight:700; color:' + meta.color + '; border:1px solid ' + meta.color + '; border-radius:4px; padding:2px 7px; margin-right:8px;">' + esc(meta.label) + '</span>'
+      : '';
+
     return '<div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--panel-2); border-bottom:1px solid var(--line);">' +
-        '<span style="font-family:\'JetBrains Mono\', monospace; font-size:13px; font-weight:700; color:var(--text);">오늘의 실전 분석 · ' + ticker + '</span>' +
+        '<span style="font-family:\'JetBrains Mono\', monospace; font-size:13px; font-weight:700; color:var(--text);">' + catBadgeHtml + '오늘의 실전 분석 · ' + ticker + '</span>' +
         '<span style="font-family:\'JetBrains Mono\', monospace; font-size:11px; color:var(--text);">' + date + ' 업데이트</span>' +
       '</div>' +
       imgHtml +
@@ -88,6 +103,53 @@
         (stepsHtml ? '<div style="font-family:\'JetBrains Mono\', monospace; font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">💡 한눈에 보는 3단계 가이드</div>' +
           '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:22px;">' + stepsHtml + '</div>' : '') +
         (keyQuote ? '<div style="background:rgba(23,232,201,0.08); border:1px solid rgba(23,232,201,0.25); border-radius:8px; padding:14px 16px; font-size:13px; color:var(--text); line-height:1.6;">📝 <strong>"' + keyQuote + '"</strong></div>' : '') +
+      '</div>';
+  }
+
+  // 카테고리별로 최신 N개만 뽑기 (rows는 이미 날짜 내림차순 정렬된 상태여야 함)
+  function getByCategory(rows, category, limit){
+    return rows.filter(function(r){ return r['카테고리'] === category; }).slice(0, limit || 3);
+  }
+
+  // 홈페이지 게시판 카드용 압축 리스트 아이템 1건 (제목 + 배지 + 날짜만)
+  function renderBoardItem(r, opts){
+    opts = opts || {};
+    var meta = CATEGORY_META[r['카테고리']] || { label: r['카테고리'] || '', color: 'var(--text-faint)' };
+    var radiusStyle = '';
+    if (opts.first && opts.last) radiusStyle = 'border-radius:8px;';
+    else if (opts.first) radiusStyle = 'border-radius:8px 8px 0 0;';
+    else if (opts.last) radiusStyle = 'border-radius:0 0 8px 8px; border-bottom:none;';
+
+    return '<a href="daily-analysis.html?cat=' + encodeURIComponent(r['카테고리'] || '') + '" style="display:block; text-decoration:none; color:inherit; background:var(--panel-2); padding:12px 14px; border-bottom:1px solid var(--line-soft); ' + radiusStyle + '">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+          '<span style="font-size:10px; font-weight:700; color:' + meta.color + ';">' + esc(meta.label) + '</span>' +
+          '<span style="font-size:11px; color:var(--text-faint);">' + esc(r['날짜']) + '</span>' +
+        '</div>' +
+        '<div style="font-size:13px; color:var(--text); line-height:1.4;">' + esc(r['헤드라인'] || (r['종목'] + ' 분석')) + '</div>' +
+      '</a>';
+  }
+
+  // 홈페이지 게시판 카드 전체 HTML (카테고리별 최신 N개씩, 순서대로 이어붙임)
+  function renderBoardHTML(rows, perCategory){
+    perCategory = perCategory || 3;
+    var items = [];
+    CATEGORY_ORDER.forEach(function(cat){
+      items = items.concat(getByCategory(rows, cat, perCategory));
+    });
+    return items.map(function(r, i){
+      return renderBoardItem(r, { first: i === 0, last: i === items.length - 1 });
+    }).join('');
+  }
+
+  // daily-analysis.html 목록용 요약 행 1건 (탭/전체 목록에서 사용, 클릭 시 상세 렌더링)
+  function renderListRow(r, index){
+    var meta = CATEGORY_META[r['카테고리']] || { label: r['카테고리'] || '기타', color: 'var(--text-faint)' };
+    return '<div class="board-row" data-category="' + esc(r['카테고리'] || '') + '" data-index="' + index + '" style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px; border-bottom:1px solid var(--line-soft); cursor:pointer;">' +
+        '<div style="display:flex; align-items:center; gap:12px; min-width:0;">' +
+          '<span style="flex-shrink:0; font-size:10px; font-weight:700; color:' + meta.color + '; border:1px solid ' + meta.color + '; border-radius:4px; padding:3px 8px;">' + esc(meta.label) + '</span>' +
+          '<span style="font-size:14px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' + esc(r['헤드라인'] || (r['종목'] + ' 분석')) + '</span>' +
+        '</div>' +
+        '<span style="flex-shrink:0; font-size:12px; color:var(--text-faint); font-family:\'JetBrains Mono\', monospace;">' + esc(r['날짜']) + '</span>' +
       '</div>';
   }
 
@@ -110,7 +172,12 @@
 
   global.MijooAnalysis = {
     renderAnalysisBlock: renderAnalysisBlock,
+    renderBoardHTML: renderBoardHTML,
+    renderListRow: renderListRow,
+    getByCategory: getByCategory,
     loadRows: loadRows,
+    CATEGORY_META: CATEGORY_META,
+    CATEGORY_ORDER: CATEGORY_ORDER,
     esc: esc
   };
 })(window);
