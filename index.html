@@ -224,57 +224,22 @@
     font-family:'JetBrains Mono', monospace;
     font-size:11px; color:var(--text-faint);
   }
-  #leadersTitle{ color:var(--text); font-size:14px; font-weight:700; }
+  #boardTitle{ color:var(--text); font-size:14px; font-weight:700; }
   .term-dots{display:flex; gap:6px;}
   .term-dots span{width:8px; height:8px; border-radius:50%; background:var(--line);}
-  .term-body{padding:10px 16px 4px;}
-  .term-row{
-    display:flex; justify-content:space-between; align-items:center; gap:10px;
-    padding:9px 4px;
-    font-family:'JetBrains Mono', monospace; font-size:12.5px;
-    border-bottom:1px solid var(--line-soft);
+  .board-tabs{
+    display:flex; gap:6px; flex-wrap:wrap;
+    padding:12px 14px 0;
   }
-  .term-row > .term-sym{flex:0 0 auto; min-width:44px;}
-  .term-row > .mono{flex:1; text-align:right;}
-  .term-row > .term-badge{flex:0 0 auto; min-width:64px; text-align:center;}
-  .term-row:last-child{border-bottom:none;}
-  .term-sym{color:var(--text); font-weight:600;}
-  .term-badge{
-    font-size:10px; padding:2px 7px; border-radius:4px; font-weight:700;
-    letter-spacing:0.02em;
-  }
-  .badge-up{background:rgba(255,77,94,0.14); color:var(--up);}
-  .badge-down{background:rgba(61,139,255,0.14); color:var(--down);}
-  .badge-cyan{background:rgba(23,232,201,0.14); color:var(--cyan);}
-
-  .lead-row{
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-    gap:8px 16px;
-    padding:12px 6px;
-    border-bottom:1px solid var(--line-soft);
+  .board-tab{
     font-family:'JetBrains Mono', monospace;
+    font-size:10.5px; font-weight:600;
+    padding:5px 10px; border-radius:6px;
+    border:1px solid var(--line);
+    background:var(--panel-2); color:var(--text-dim);
   }
-  .lead-row:last-child{border-bottom:none;}
-  .lead-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
-  .lead-id{display:flex; align-items:baseline; gap:8px; min-width:0;}
-  .lead-sym{color:var(--text); font-weight:700; font-size:14px; letter-spacing:0.01em;}
-  .lead-sector{
-    color:var(--text-faint); font-size:9.5px; letter-spacing:0.06em;
-    text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  }
-  .lead-price-wrap{display:flex; align-items:center; gap:8px; flex:0 0 auto;}
-  .lead-price{color:var(--text-dim); font-size:13px;}
-  .lead-bottom{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
-  .stage-badge{
-    font-size:9px; padding:2px 6px; border-radius:4px; font-weight:800;
-    letter-spacing:0.03em; white-space:nowrap;
-  }
-  .stage-1{background:rgba(245,196,81,0.14); color:var(--amber);}
-  .stage-2{background:rgba(255,77,94,0.14); color:var(--up);}
-  .stage-3{background:rgba(245,196,81,0.14); color:var(--amber);}
-  .stage-4{background:rgba(61,139,255,0.14); color:var(--down);}
-  .lead-cw{color:var(--text-faint); font-size:10px;}
-  .lead-cw .num{color:var(--violet); font-weight:700;}
+  .board-tab.active{background:var(--cyan); color:#04120f; border-color:var(--cyan);}
+  .term-body{padding:12px 0 0;}
 
   section{position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:48px 28px;}
   .section-head{margin-bottom:44px;}
@@ -493,78 +458,64 @@
 
     <div class="term-card">
       <div class="term-titlebar">
-        <span id="leadersTitle">MiJooStock / 오늘의 주도주 · 불러오는 중...</span>
-        <div class="term-dots"><span></span><span></span><span></span></div>
+        <span id="boardTitle">MiJooStock / 실전 GEX 분석</span>
+        <a href="daily-analysis.html" style="color:var(--cyan); font-size:11px; font-weight:700;">전체보기 →</a>
       </div>
-      <div class="term-body" id="leadersBody">
-        <div class="lead-row">
-          <span class="lead-sym"></span>
-          <span class="lead-price">$183.75</span>
-          <span class="stage-badge stage-2">STAGE 2 · 상승국면</span>
-          <span class="lead-cw">Gamma Flip <span class="num">192.5</span></span>
-          <span class="lead-cw">Call Wall <span class="num">192.5</span></span>
-          <span class="lead-cw">Put Wall <span class="num">180</span></span>
-        </div>
-        <div class="lead-row">
-          <span class="lead-sym">PLTR</span>
-          <span class="lead-price">$173.96</span>
-          <span class="stage-badge stage-1">STAGE 1 · 바닥다지기</span>
-          <span class="lead-cw">Gamma Flip <span class="num">130</span></span>
-          <span class="lead-cw">Call Wall <span class="num">180</span></span>
-          <span class="lead-cw">Put Wall <span class="num">170</span></span>
-        </div>
+      <div class="board-tabs" id="boardTabs">
+        <span class="board-tab active" data-cat="">전체</span>
+        <span class="board-tab" data-cat="급등주케이스">급등주 케이스</span>
+        <span class="board-tab" data-cat="한인선호종목">한인 선호 종목</span>
+        <span class="board-tab" data-cat="트레이딩QNA">트레이딩 Q&amp;A</span>
       </div>
-      <div class="term-row" style="border-top:1px solid var(--line); padding-top:12px; margin-top:2px; padding-left:22px; padding-right:22px; padding-bottom:16px;">
-        <span style="color:var(--text-faint); font-size:11px;">15분 지연 · 매일 자동 갱신</span>
-        <a href="https://gexoption.com" target="_blank" rel="noopener" style="color:var(--cyan); font-size:11px; font-weight:700;">전체 시세 보기 →</a>
+      <div class="term-body" id="boardBody">
+        <div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">불러오는 중...</div>
       </div>
     </div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="analysis-render.js"></script>
 <script>
 (function(){
-  const titleEl = document.getElementById('leadersTitle');
-  const bodyEl = document.getElementById('leadersBody');
+  var allRows = [];
+  var bodyEl = document.getElementById('boardBody');
+  var tabEls = document.querySelectorAll('#boardTabs .board-tab');
 
-  const MY_TICKERS = ['TSLA', 'PLTR', 'SPCX', 'GOOGL', 'MSFT', 'HOOD', 'BMNR', 'EOSE', 'LRCX', 'TER'];
-
-  fetch('https://www.gexoption.com/leaders_report.json', { cache: 'no-store' })
-    .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
-    .then(function(data){
-      const all = []
-        .concat(data.categories.wave1 || [])
-        .concat(data.categories.wave2 || [])
-        .concat(data.categories.speculative || []);
-
-      const rows = MY_TICKERS
-        .map(function(t){ return all.find(function(r){ return r.ticker === t; }); })
-        .filter(Boolean)
-        .slice(0, 10);
-
-      if(!rows.length) return;
-
-      bodyEl.innerHTML = rows.map(function(r){
-        return '<div class="lead-row">' +
-          '<span class="lead-sym">' + r.ticker + '</span>' +
-          '<span class="lead-price">$' + r.spot.toFixed(2) + '</span>' +
-          '<span class="stage-badge stage-' + r.stage + '">STAGE ' + r.stage + ' · ' + r.stage_label + '</span>' +
-          '<span class="lead-cw">Gamma Flip <span class="num">' + r.gamma_flip + '</span></span>' +
-          '<span class="lead-cw">Call Wall <span class="num">' + r.call_wall + '</span></span>' +
-          '<span class="lead-cw">Put Wall <span class="num">' + r.put_wall + '</span></span>' +
-        '</div>';
+  function renderCurrent(activeCategory){
+    if (!allRows.length){
+      bodyEl.innerHTML = '<div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">아직 게시된 글이 없습니다.</div>';
+      return;
+    }
+    var html;
+    if (activeCategory){
+      var rows = MijooAnalysis.getByCategory(allRows, activeCategory, 5);
+      html = rows.map(function(r, i){
+        return '<a href="daily-analysis.html?cat=' + encodeURIComponent(activeCategory) + '" style="display:block; text-decoration:none; color:inherit; background:var(--panel-2); padding:12px 14px; border-bottom:1px solid var(--line-soft);' + (i === rows.length - 1 ? 'border-bottom:none;' : '') + (i === 0 ? 'border-radius:8px 8px 0 0;' : '') + (i === rows.length - 1 ? 'border-radius:0 0 8px 8px;' : '') + '">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+            '<span style="font-size:11px; color:var(--text-faint);">' + MijooAnalysis.esc(r['날짜']) + '</span>' +
+          '</div>' +
+          '<div style="font-size:13px; color:var(--text); line-height:1.4;">' + MijooAnalysis.esc(r['헤드라인'] || (r['종목'] + ' 분석')) + '</div>' +
+        '</a>';
       }).join('');
+    } else {
+      html = MijooAnalysis.renderBoardHTML(allRows, 3);
+    }
+    bodyEl.innerHTML = html || '<div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">아직 게시된 글이 없습니다.</div>';
+  }
 
-      let dateLabel = '';
-      if(data.generated_at){
-        const d = new Date(data.generated_at);
-        dateLabel = (d.getMonth()+1) + '/' + d.getDate() + ' 기준';
-      }
-      titleEl.textContent = 'MiJooStock / 오늘의 주도주' + (dateLabel ? ' · ' + dateLabel : '');
-    })
-    .catch(function(){
-      titleEl.textContent = 'MiJooStock / 오늘의 주도주';
+  tabEls.forEach(function(tabEl){
+    tabEl.addEventListener('click', function(){
+      tabEls.forEach(function(t){ t.classList.remove('active'); });
+      tabEl.classList.add('active');
+      renderCurrent(tabEl.getAttribute('data-cat'));
     });
+  });
+
+  MijooAnalysis.loadRows(
+    function(rows){ allRows = rows; renderCurrent(''); },
+    function(){ bodyEl.innerHTML = '<div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">분석 자료를 준비 중입니다.</div>'; }
+  );
 })();
 </script>
 
@@ -827,32 +778,8 @@
 <section id="live-chart">
   <div class="section-head">
     <div class="section-eyebrow">Live Chart</div>
-    <h2 class="section-title">오늘의 실전차트 <span>분석하기</span></h2>
-    <p class="section-desc">Harry의 직접 분석 노트와 실시간 차트를 함께 확인하세요.</p>
-  </div>
-
-  <div id="latestAnalysisCard" style="border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6); margin-bottom:16px;">
-    <div style="padding:40px 20px; text-align:center; color:var(--text-faint); font-size:13px;">불러오는 중...</div>
-  </div>
-
-  <div style="text-align:right; margin-bottom:24px;">
-    <a href="daily-analysis.html" style="color:var(--cyan); font-size:13px; font-weight:700;">지난 실전분석 전체보기 →</a>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script src="analysis-render.js"></script>
-  <script>
-  (function(){
-    var cardEl = document.getElementById('latestAnalysisCard');
-    MijooAnalysis.loadRows(
-      function(rows){ cardEl.innerHTML = MijooAnalysis.renderAnalysisBlock(rows[0]); },
-      function(){ cardEl.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--text-faint); font-size:13px;">분석 자료를 준비 중입니다.</div>'; }
-    );
-  })();
-  </script>
-
-  <div class="section-head" style="margin-bottom:24px;">
-    <p class="section-desc">아래에서 QQQ 기준 실시간 차트를 직접 확인하거나, 종목 검색으로 원하는 티커로 바로 바꿔볼 수 있습니다.</p>
+    <h2 class="section-title">실시간 차트로 <span>직접 확인하기</span></h2>
+    <p class="section-desc">QQQ 기준 실시간 차트를 확인하거나, 종목 검색으로 원하는 티커로 바로 바꿔볼 수 있습니다.</p>
   </div>
 
   <div style="border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);">
