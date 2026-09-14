@@ -7,7 +7,7 @@
 */
 (function(global){
   var SHEET_ID = '1lJVPwXYQlDjcI10F2vZMuxhLITK02hDVdp00WHw_3eg';
-  var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&gid=0';
+  var CSV_URL = 'https://docfunction renderBoardHTML(rows, perCategory)s.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&gid=0';
 
   var CATEGORY_META = {
     '급등주케이스': { label: '급등주 케이스',   color: 'var(--up)' },
@@ -131,15 +131,17 @@
 
   // 홈페이지 게시판 카드 전체 HTML (카테고리별 최신 N개씩, 순서대로 이어붙임)
   function renderBoardHTML(rows, perCategory){
-    perCategory = perCategory || 3;
-    var items = [];
-    CATEGORY_ORDER.forEach(function(cat){
-      items = items.concat(getByCategory(rows, cat, perCategory));
-    });
-    return items.map(function(r, i){
-      return renderBoardItem(r, { first: i === 0, last: i === items.length - 1 });
-    }).join('');
-  }
+  perCategory = perCategory || 3;
+  var items = [];
+  CATEGORY_ORDER.forEach(function(cat){
+    items = items.concat(getByCategory(rows, cat, perCategory));
+  });
+  // 카테고리별로 최신 N개씩 뽑은 뒤, 전체를 다시 날짜 내림차순으로 재정렬
+  items.sort(function(a, b){ return String(b['날짜']).localeCompare(String(a['날짜'])); });
+  return items.map(function(r, i){
+    return renderBoardItem(r, { first: i === 0, last: i === items.length - 1 });
+  }).join('');
+}
 
   // daily-analysis.html 목록용 요약 행 1건 (탭/전체 목록에서 사용, 클릭 시 상세 렌더링)
   function renderListRow(r, index){
