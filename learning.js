@@ -1,0 +1,1 @@
+(function(){var b=document.getElementById('menuBtn'),n=document.getElementById('navLinks');if(b&&n)b.addEventListener('click',function(){n.classList.toggle('open');b.setAttribute('aria-expanded',n.classList.contains('open')?'true':'false')});})();
