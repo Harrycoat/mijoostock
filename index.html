@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>미국주식 계좌개설부터 GEX 옵션까지 | 미주스탁닷컴 - 미주 한인 투자 가이드</title>
-<meta name="description" content="미국 주식이 처음인 미주 한인을 위한 무료 가이드. 증권사 계좌개설, RSI·MACD 차트분석, 감마(GEX) 옵션 전략, 커버드콜 월세 프로젝트까지 한 곳에서 배우세요.">
-<meta name="keywords" content="미국주식, 미국주식 계좌개설, 미주 한인 주식, 미국주식 옵션, GEX 감마, 커버드콜, 캐시시큐어드풋, 휠전략, 미국주식 시작하기, 미주스탁닷컴">
-<meta property="og:title" content="미국주식 계좌개설부터 GEX 옵션까지 | 미주스탁닷컴">
-<meta property="og:description" content="미국 주식이 처음인 미주 한인을 위한 무료 가이드. 계좌개설, 차트분석, GEX 옵션, 월세 프로젝트까지.">
+<title>미국 주식 시작부터 은퇴자금·ETF 투자까지 | 미주스탁닷컴</title>
+<meta name="description" content="미주 한인을 위한 미국 투자 가이드. 주식 시작, 401(k)·IRA·Roth IRA, 은퇴자금 운용, ETF 투자, 차트 분석과 GEX 옵션을 단계별로 배워보세요.">
+<meta name="keywords" content="미국주식, 401k, IRA, Roth IRA, 은퇴연금, 은퇴자금, ETF 투자, HYSA, CD, T-Bills, 레버리지 ETF, GEX 옵션, 미주스탁닷컴">
+<meta property="og:title" content="미국 주식 시작부터 은퇴자금·ETF 투자까지 | 미주스탁닷컴">
+<meta property="og:description" content="주식 시작, 은퇴연금, 은퇴자금 운용, ETF 투자와 실전 트레이딩을 한국어로 배우는 미주 한인 투자 가이드.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mijoostock.com">
 <meta property="og:locale" content="ko_KR">
@@ -241,6 +241,22 @@
   .board-tab.active{background:var(--cyan); color:#04120f; border-color:var(--cyan);}
   .term-body{padding:12px 0 0;}
 
+  .journey-card{padding:26px; background:linear-gradient(145deg,rgba(23,232,201,.06),var(--panel) 46%,rgba(245,196,81,.06));}
+  .journey-title{font:700 12px 'JetBrains Mono',monospace; color:var(--text-faint); letter-spacing:.08em; margin-bottom:22px;}
+  .journey-flow{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; position:relative;}
+  .journey-flow::before{content:''; position:absolute; left:10%; right:10%; top:24px; height:1px; background:linear-gradient(90deg,var(--cyan),var(--down),var(--amber)); opacity:.7;}
+  .journey-step{position:relative; z-index:1; text-align:center; color:var(--text-dim); font-size:11px; font-weight:700;}
+  .journey-icon{width:48px; height:48px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:50%; background:var(--panel-2); font-size:20px; box-shadow:0 0 0 6px var(--panel);}
+  .journey-step:first-child .journey-icon{border-color:var(--cyan); color:var(--cyan);}.journey-step:last-child .journey-icon{border-color:var(--amber); color:var(--amber);}
+
+  .retirement-card{min-height:300px;}
+  .retirement-card .track-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(23,232,201,.08);border:1px solid rgba(23,232,201,.2);}
+  .risk-panel{margin-top:16px; padding:24px; border:1px solid rgba(245,196,81,.35); border-radius:14px; background:linear-gradient(135deg,rgba(245,196,81,.08),var(--panel));}
+  .risk-panel-top{display:flex; align-items:flex-start; gap:14px;}.risk-panel h3{color:var(--amber); font-size:20px; margin-bottom:6px;}.risk-panel p{color:var(--text-dim);font-size:13px;line-height:1.65;}
+  .risk-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.risk-chip{padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel-2)}.risk-chip b{display:block;font-size:13px;margin-bottom:4px}.risk-chip span{font-size:11px;color:var(--text-dim)}
+  .content-ad{max-width:1240px;margin:0 auto;padding:12px 28px 24px}.content-ad-label{text-align:center;color:var(--text-faint);font-size:10px;margin-bottom:6px}
+  @media(max-width:700px){.journey-flow{grid-template-columns:1fr 1fr}.journey-flow::before{display:none}.risk-chips{grid-template-columns:1fr}.content-ad{padding:8px 16px 20px}}
+
   section{position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:48px 28px;}
   .section-head{margin-bottom:44px;}
   .section-eyebrow{
@@ -394,13 +410,15 @@
       MiJooStock<span class="dim">.com</span>
     </a>
     <nav class="links">
-      <a href="guide-account.html">기초 가이드</a>
+      <a href="guide-account.html">주식 시작</a>
+      <a href="retirement-pension.html">은퇴연금</a>
+      <a href="retirement-funds.html">은퇴자금</a>
+      <a href="etf-investing.html">ETF 투자</a>
       <a href="guide-indicators.html">차트 분석</a>
       <a href="daily-analysis.html">일일 실전분석</a>
       <a href="guide-gex.html">GEX 옵션</a>
       <a href="guide-covered-call.html">월세 프로젝트</a>
       <a href="#coaching" style="color:var(--amber); font-weight:600;">1:1 강의</a>
-      <a href="community.html">커뮤니티</a>
     </nav>
     <div class="nav-right">
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="메뉴 열기">
@@ -414,13 +432,15 @@
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
   <a class="home-link" href="index.html">🏠 홈으로</a>
-  <a href="guide-account.html">🔰 기초 가이드</a>
+  <a href="guide-account.html">🔰 주식 시작하기</a>
+  <a href="retirement-pension.html">🏦 은퇴연금 시작하기</a>
+  <a href="retirement-funds.html">🛡️ 은퇴자금 운용</a>
+  <a href="etf-investing.html">📦 ETF 투자</a>
   <a href="guide-indicators.html">📊 차트 분석</a>
   <a href="daily-analysis.html">📈 일일 실전분석</a>
   <a href="guide-gex.html">⚡ GEX 옵션</a>
   <a href="guide-covered-call.html">💰 월세 프로젝트</a>
   <a class="coaching-link" href="#coaching">🎯 1:1 강의</a>
-  <a href="community.html">🏘️ 커뮤니티</a>
   <a href="apply.html?type=account">📝 문의하기</a>
 </div>
 
@@ -444,80 +464,33 @@
   <div class="hero-wrap">
     <div>
       <div class="hero-eyebrow">미주 한인들의 주식 정보사이트</div>
-      <h1>입문자를 위한 계좌 개설부터<br>전문가용 감마(GEX) 지표까지,<br><span class="accent">미주 한인을 위한 단 하나의 미국 주식 가이드</span></h1>
+      <h1>미국 주식 시작부터 은퇴자금 운용,<br><span class="accent">ETF 투자와 실전 트레이딩까지</span></h1>
       <p class="hero-sub">
-        미국 주식이 처음이어도, 옵션과 GEX가 낯설어도 괜찮습니다.
-        MiJooStock은 초보자 온보딩부터 실전 GEX 대시보드까지
-        단계별로 이어지는 미주 한인을 위한 투자 정보 플랫폼입니다.
+        주식이 처음인 분도, 은퇴를 준비하는 분도 괜찮습니다.
+        401(k)·IRA부터 안전자금과 ETF, 차트와 GEX까지
+        단계별로 이해하는 미주 한인 투자 교육 플랫폼입니다.
       </p>
       <div class="hero-actions">
-        <a class="btn-primary" href="guide-account.html">🔰 기초 가이드 시작하기 →</a>
-        <a class="btn-secondary" href="#gex">GEX 대시보드 보기</a>
+        <a class="btn-primary" href="retirement-pension.html">은퇴 준비 시작하기 →</a>
+        <a class="btn-secondary" href="etf-investing.html">ETF 투자 배우기</a>
       </div>
     </div>
 
-    <div class="term-card">
+    <div class="term-card journey-card">
       <div class="term-titlebar">
-        <span id="boardTitle">MiJooStock / 실전 GEX 분석</span>
-        <a href="daily-analysis.html" style="color:var(--cyan); font-size:11px; font-weight:700;">전체보기 →</a>
+        <span>MiJooStock / LEARNING JOURNEY</span>
+        <span style="color:var(--cyan)">나에게 맞는 순서로</span>
       </div>
-      <div class="board-tabs" id="boardTabs">
-        <span class="board-tab active" data-cat="">전체</span>
-        <span class="board-tab" data-cat="급등주케이스">급등주 케이스</span>
-        <span class="board-tab" data-cat="한인선호종목">한인 선호 종목</span>
-        <span class="board-tab" data-cat="트레이딩QNA">트레이딩 Q&amp;A</span>
-      </div>
-      <div class="term-body" id="boardBody">
-        <div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">불러오는 중...</div>
+      <div class="journey-title">주식 시작 → 은퇴연금 → 자금 운용 → ETF 투자</div>
+      <div class="journey-flow">
+        <a class="journey-step" href="guide-account.html"><span class="journey-icon">🌱</span>주식 시작</a>
+        <a class="journey-step" href="retirement-pension.html"><span class="journey-icon">🏦</span>은퇴연금</a>
+        <a class="journey-step" href="retirement-funds.html"><span class="journey-icon">🪙</span>자금 운용</a>
+        <a class="journey-step" href="etf-investing.html"><span class="journey-icon">📊</span>ETF 투자</a>
       </div>
     </div>
   </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="analysis-render.js"></script>
-<script>
-(function(){
-  var allRows = [];
-  var bodyEl = document.getElementById('boardBody');
-  var tabEls = document.querySelectorAll('#boardTabs .board-tab');
-
-  function renderCurrent(activeCategory){
-    if (!allRows.length){
-      bodyEl.innerHTML = '<div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">아직 게시된 글이 없습니다.</div>';
-      return;
-    }
-    var html;
-    if (activeCategory){
-      var rows = MijooAnalysis.getByCategory(allRows, activeCategory, 5);
-      html = rows.map(function(r, i){
-        return '<a href="daily-analysis.html?cat=' + encodeURIComponent(activeCategory) + '" style="display:block; text-decoration:none; color:inherit; background:var(--panel-2); padding:12px 14px; border-bottom:1px solid var(--line-soft);' + (i === rows.length - 1 ? 'border-bottom:none;' : '') + (i === 0 ? 'border-radius:8px 8px 0 0;' : '') + (i === rows.length - 1 ? 'border-radius:0 0 8px 8px;' : '') + '">' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-            '<span style="font-size:11px; color:var(--text-faint);">' + MijooAnalysis.esc(r['날짜']) + '</span>' +
-          '</div>' +
-          '<div style="font-size:13px; color:var(--text); line-height:1.4;">' + MijooAnalysis.esc(r['헤드라인'] || (r['종목'] + ' 분석')) + '</div>' +
-        '</a>';
-      }).join('');
-    } else {
-      html = MijooAnalysis.renderBoardHTML(allRows, 3);
-    }
-    bodyEl.innerHTML = html || '<div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">아직 게시된 글이 없습니다.</div>';
-  }
-
-  tabEls.forEach(function(tabEl){
-    tabEl.addEventListener('click', function(){
-      tabEls.forEach(function(t){ t.classList.remove('active'); });
-      tabEl.classList.add('active');
-      renderCurrent(tabEl.getAttribute('data-cat'));
-    });
-  });
-
-  MijooAnalysis.loadRows(
-    function(rows){ allRows = rows; renderCurrent(''); },
-    function(){ bodyEl.innerHTML = '<div style="padding:24px 14px; text-align:center; color:var(--text-faint); font-size:12px;">분석 자료를 준비 중입니다.</div>'; }
-  );
-})();
-</script>
 
 <section style="padding-top:0; padding-bottom:16px;">
   <a href="https://gexoption.blogspot.com/" target="_blank" rel="noopener" style="
@@ -547,72 +520,66 @@
 
 <section id="tracks">
   <div class="section-head">
-    <div class="section-eyebrow">Learning Track</div>
-    <h2 class="section-title">투자 경험에 맞는 <span>4개의 트랙</span></h2>
-    <p class="section-desc">완전 초보자부터 옵션 트레이더까지 — 지금 수준에서 시작해서, 다음 단계로 자연스럽게 넘어가세요.</p>
+    <div class="section-eyebrow">Retirement Learning Hub</div>
+    <h2 class="section-title">은퇴 준비에 필요한 <span>3개의 핵심 가이드</span></h2>
+    <p class="section-desc">계좌를 이해하고, 자금을 목적별로 나누고, ETF의 역할과 위험을 배워보세요.</p>
   </div>
 
-  <div class="tracks">
-    <div class="track-card">
-      <span class="track-level lvl-1">LEVEL 1</span>
-      <div class="track-icon">🔰</div>
-      <div class="track-title">기초 가이드</div>
-      <div class="track-desc">계좌 개설부터 첫 주문까지, 미국 주식 입문에 필요한 모든 것.</div>
+  <div class="tracks tracks-3col">
+    <div class="track-card retirement-card">
+      <span class="track-level lvl-1">STEP 1 · ACCOUNT</span>
+      <div class="track-icon">🏦</div>
+      <div class="track-title">은퇴연금 시작하기</div>
+      <div class="track-desc">401(k), IRA, Roth IRA의 차이를 이해하고 나에게 맞는 은퇴계좌를 준비합니다.</div>
       <ul class="track-list">
-        <li>증권사 비교 &amp; 계좌 개설</li>
-        <li>지정가 vs 시장가 주문</li>
-        <li>세금 · 양도소득세 기초</li>
+        <li>401(k) · IRA · Roth IRA</li>
+        <li>Traditional vs Roth</li>
+        <li>Rollover 기본 절차</li>
+        <li>인출 시기와 세금 기초</li>
       </ul>
-      <div class="track-cta"><a href="guide-account.html" style="color:inherit;">시작하기 →</a></div>
+      <div class="track-cta"><a href="retirement-pension.html" style="color:inherit;">은퇴계좌 배우기 →</a></div>
     </div>
 
-    <div class="track-card">
-      <span class="track-level lvl-2">LEVEL 2</span>
-      <div class="track-icon">📊</div>
-      <div class="track-title">차트 &amp; 시장 분석</div>
-      <div class="track-desc">이동평균선부터 TTM Squeeze까지, 실전 기술적 지표 해설.</div>
+    <div class="track-card retirement-card">
+      <span class="track-level lvl-2">STEP 2 · SAFETY</span>
+      <div class="track-icon">🛡️</div>
+      <div class="track-title">은퇴자금 운용</div>
+      <div class="track-desc">사용 시기와 목적에 따라 생활비·안전자금·투자자금으로 분리해 관리합니다.</div>
       <ul class="track-list">
-        <li>RSI · MACD · 볼린저 밴드</li>
-        <li><a href="guide-stage-canslim.html" style="color:var(--cyan);">실전 매매가이드 (Stage+CANSLIM)</a></li>
-        <li>ThinkorSwim 지표 세팅</li>
-        <li>멀티 타임프레임 분석</li>
+        <li>HYSA · CD · T-Bills 비교</li>
+        <li>3개의 자금 바구니</li>
+        <li>유동성과 만기 관리</li>
+        <li>위험도별 자산배분 예시</li>
       </ul>
-      <div class="track-cta"><a href="guide-indicators.html" style="color:inherit;">배우기 →</a></div>
+      <div class="track-cta"><a href="retirement-funds.html" style="color:inherit;">은퇴자금 나누기 →</a></div>
     </div>
 
-    <div class="track-card">
-      <div style="display:flex; gap:6px; align-items:center;">
-        <span class="track-level lvl-3">LEVEL 3</span>
-        <span class="track-level" style="background:rgba(23,232,201,0.14); color:var(--cyan);">PRO</span>
-      </div>
-      <div class="track-icon">⚡</div>
-      <div class="track-title">고급 옵션 &amp; GEX</div>
-      <div class="track-desc">개념 설명은 무료, 실시간 GEX 대시보드는 gexoption.com PRO 구독에서.</div>
+    <div class="track-card retirement-card">
+      <span class="track-level lvl-3">STEP 3 · INVEST</span>
+      <div class="track-icon">📦</div>
+      <div class="track-title">ETF 투자</div>
+      <div class="track-desc">시장대표·배당·채권·성장·인컴 ETF의 역할과 비용, 위험을 비교합니다.</div>
       <ul class="track-list">
-        <li>Call Wall / Put Wall 읽는 법</li>
-        <li>Collar · CSP · Wheel 전략</li>
-        <li>QQQ·SPY·NVDA 실시간 GEX</li>
+        <li>시장대표 ETF</li>
+        <li>배당 · 채권 · 성장 ETF</li>
+        <li>은퇴자 인컴 ETF</li>
+        <li>레버리지 ETF 위험</li>
       </ul>
-      <div style="display:flex; flex-direction:column; gap:8px; margin-top:6px;">
-        <div class="track-cta"><a href="guide-gex.html" style="color:inherit;">개념 배우기 (무료) →</a></div>
-        <div class="track-cta" style="color:var(--amber);"><a href="https://gexoption.com" target="_blank" rel="noopener" style="color:inherit;">🔒 실전 대시보드 · gexoption.com →</a></div>
-      </div>
-    </div>
-
-    <div class="track-card">
-      <span class="track-level lvl-4">LEVEL 4</span>
-      <div class="track-icon">💰</div>
-      <div class="track-title">주식으로 월세받기 (월세 프로젝트)</div>
-      <div class="track-desc">부동산 건물주가 매달 월세를 받듯, 주식 계좌에서 프리미엄 수입을 챙기는 전략입니다. 매월 월세를 받으세요.</div>
-      <ul class="track-list">
-        <li>Covered Call 인컴 만들기</li>
-        <li>HYSA · CD 금리 비교</li>
-        <li>T-Bills 직매입 &amp; 주세 절세</li>
-      </ul>
-      <div class="track-cta"><a href="guide-covered-call.html" style="color:inherit;">알아보기 →</a></div>
+      <div class="track-cta"><a href="etf-investing.html" style="color:inherit;">ETF 비교 배우기 →</a></div>
     </div>
   </div>
+
+  <a class="risk-panel" href="etf-investing.html#leveraged" style="display:block;color:inherit;">
+    <div class="risk-panel-top"><span style="font-size:28px;">⚠️</span><div><h3>레버리지 ETF, 장기 수익률이 단순 2배·3배는 아닙니다</h3><p>대부분 하루 수익률의 배수를 목표로 매일 재조정됩니다. 보유하기 전에 구조와 손실 가능성을 먼저 확인하세요.</p></div></div>
+    <div class="risk-chips"><div class="risk-chip"><b>일일 재조정</b><span>장기 성과는 기초지수의 단순 배수와 달라질 수 있습니다.</span></div><div class="risk-chip"><b>변동성 손실</b><span>급등락이 반복되면 복리 경로가 수익률을 깎을 수 있습니다.</span></div><div class="risk-chip"><b>큰 낙폭 위험</b><span>하락장에서 손실과 회복에 필요한 상승률이 빠르게 커집니다.</span></div></div>
+  </a>
 </section>
+
+<div class="content-ad" aria-label="광고">
+  <div class="content-ad-label">광고</div>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4689151958671592" data-ad-slot="4807068104" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 <section style="padding-top:16px; padding-bottom:16px;">
   <a href="guide-stage-canslim.html" style="
